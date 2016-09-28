@@ -9,7 +9,7 @@
 
 
 
-<link rel="canonical" href="https://yjk21.github.io/unrolling.html">
+<link rel="canonical" href="/unrolling.html">
 
         <meta name="author" content="yjk21" />
         <meta name="keywords" content="Theano,Scan,Programming,Performance,Python,RNN" />
@@ -18,7 +18,7 @@
         <meta property="og:site_name" content="Learning Machine Learning" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Unrolling Theano Scans for Fun and Profit"/>
-        <meta property="og:url" content="https://yjk21.github.io/unrolling.html"/>
+        <meta property="og:url" content="/unrolling.html"/>
         <meta property="og:description" content="TL;DR: RNN-training in Theano using Backpropagation through Time (BPTT) can be greatly accelerated by unrolling Theano&#39;s built-in loop construct. The speedups were frankly a bit surprising. Therefore I decided to write a short tutorial on this."/>
         <meta property="article:published_time" content="2016-08-25" />
             <meta property="article:section" content="Programming" />
@@ -32,19 +32,15 @@
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://yjk21.github.io/theme/css/bootstrap.min.css" type="text/css"/>
-    <link href="https://yjk21.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="https://yjk21.github.io/theme/css/pygments/friendly.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://yjk21.github.io/theme/css/style.css" type="text/css"/>
-
-        <link href="https://yjk21.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Learning Machine Learning ATOM Feed"/>
+    <link href="/theme/css/pygments/friendly.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
 
 
 
-        <link href="https://yjk21.github.io/feeds/programming.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Learning Machine Learning Programming ATOM Feed"/>
+
 
 </head>
 <body>
@@ -58,13 +54,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="https://yjk21.github.io/" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Learning Machine Learning            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
                     <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="https://github.com/yjk21/blog/raw/master/content/files/cv.pdf">CV</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
             </ul>
@@ -81,7 +78,7 @@ Learning Machine Learning            </a>
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="https://yjk21.github.io/unrolling.html"
+                    <a href="/unrolling.html"
                        rel="bookmark"
                        title="Permalink to Unrolling Theano Scans for Fun and Profit">
                         Unrolling Theano Scans for Fun and Profit
@@ -102,17 +99,17 @@ Learning Machine Learning            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="https://yjk21.github.io/tag/theano.html">Theano</a>
+	<a href="/tag/theano.html">Theano</a>
         /
-	<a href="https://yjk21.github.io/tag/scan.html">Scan</a>
+	<a href="/tag/scan.html">Scan</a>
         /
-	<a href="https://yjk21.github.io/tag/programming.html">Programming</a>
+	<a href="/tag/programming.html">Programming</a>
         /
-	<a href="https://yjk21.github.io/tag/performance.html">Performance</a>
+	<a href="/tag/performance.html">Performance</a>
         /
-	<a href="https://yjk21.github.io/tag/python.html">Python</a>
+	<a href="/tag/python.html">Python</a>
         /
-	<a href="https://yjk21.github.io/tag/rnn.html">RNN</a>
+	<a href="/tag/rnn.html">RNN</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -1141,7 +1138,10 @@ It is mainly used to define differentiable multi-variate real-valued functions t
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">theano</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">theano.sandbox.cuda</span>
+<span class="n">theano</span><span class="o">.</span><span class="n">sandbox</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;gpu0&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">theano</span>
 <span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="kn">as</span> <span class="nn">T</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">logsumexp</span>
@@ -5560,13 +5560,13 @@ For me, avoiding the use of scan was a viable solution to get the job done, but 
       </div>
    </div>
 </footer>
-<script src="https://yjk21.github.io/theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://yjk21.github.io/theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="https://yjk21.github.io/theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
     <!-- Google Analytics -->
     <script type="text/javascript">

@@ -4,56 +4,63 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>https://yjk21.github.io/</loc>
-<lastmod>2016-09-13T15:00:46-00:00</lastmod>
+<loc>/</loc>
+<lastmod>2016-09-28T15:33:47-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://yjk21.github.io/archives.html</loc>
-<lastmod>2016-09-13T15:00:46-00:00</lastmod>
+<loc>/archives.html</loc>
+<lastmod>2016-09-28T15:33:47-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://yjk21.github.io/tags.html</loc>
-<lastmod>2016-09-13T15:00:46-00:00</lastmod>
+<loc>/tags.html</loc>
+<lastmod>2016-09-28T15:33:47-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://yjk21.github.io/categories.html</loc>
-<lastmod>2016-09-13T15:00:46-00:00</lastmod>
+<loc>/categories.html</loc>
+<lastmod>2016-09-28T15:33:47-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://yjk21.github.io/</loc>
-<lastmod>2016-09-13T15:00:46-00:00</lastmod>
+<loc>/</loc>
+<lastmod>2016-09-28T15:33:47-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://yjk21.github.io/unrolling.html</loc>
+<loc>/tensorflow.html</loc>
 <lastmod>2016-08-25T00:00:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://yjk21.github.io/julia.html</loc>
+<loc>/unrolling.html</loc>
+<lastmod>2016-08-25T00:00:00+02:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/julia.html</loc>
 <lastmod>2016-04-25T00:00:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://yjk21.github.io/author/yjk21.html</loc>
+<loc>/author/yjk21.html</loc>
 <lastmod>2016-08-25T00:00:00+00:09</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
