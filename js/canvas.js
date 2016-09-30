@@ -38,6 +38,7 @@ procButton.addEventListener('click', function(evt){
     }, function(data) {
         $("#result").text(data.result);
         console.log(data.result);
+        console.log(data.bla);
     });
 
 });
