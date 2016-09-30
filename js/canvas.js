@@ -33,6 +33,7 @@ procButton.addEventListener('click', function(evt){
     console.log(data) ;
 
     $.getJSON('http://hjkl-yjk21.rhcloud.com/_add_numbers', {
+    //$.getJSON('http://localhost:7111/_add_numbers', {
         img: data
     }, function(data) {
         $("#result").text(data.result);
