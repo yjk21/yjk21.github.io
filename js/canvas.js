@@ -10,9 +10,10 @@ var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 var r = 4
 
-var dataCanvas = document.getElementById("testc");// document.createElement("canvas");
-//dataCanvas.width = 28;
-//dataCanvas.height = 28;
+//var dataCanvas = document.getElementById("testc");// document.createElement("canvas");
+var dataCanvas =  document.createElement("canvas");
+dataCanvas.width = 50;
+dataCanvas.height = 50;
 var dataCtx = dataCanvas.getContext('2d');
 
 var clearButton = document.getElementById('bclear');
@@ -25,6 +26,9 @@ clearButton.addEventListener('click', function(evt){
 });
 
 var procButton = document.getElementById('bproc');
+google.charts.load("current", {packages:["corechart"]});
+var chartDiv = document.getElementById('chart');
+
 
 procButton.addEventListener('click', function(evt){
     //    var tmp = context.getImageData(0,0,canvas.width, canvas.height);
@@ -32,13 +36,38 @@ procButton.addEventListener('click', function(evt){
     var data = dataCanvas.toDataURL('image/png');
     console.log(data) ;
 
-    $.getJSON('http://hjkl-yjk21.rhcloud.com/_add_numbers', {
-    //$.getJSON('http://localhost:7111/_add_numbers', {
+    $.getJSON('http://hjkl-yjk21.rhcloud.com/classify', {
+    //$.getJSON('http://localhost:7111/classify', {
         img: data
     }, function(data) {
         $("#result").text(data.result);
-        console.log(data.result);
-        console.log(data.bla);
+        //console.log(data.result);
+        //console.log(data.dist);
+        //console.log(typeof(data.dist));
+        //console.log(data.dist instanceof Array);
+
+        var idx = Array.apply(null, {length: 10}).map(Function.call, Number);
+
+        var a1 = [['Digit', 'log P (shifted)']];
+        var minVal = (Math.min.apply(null, data.dist));
+
+        var logP = idx.map(function(i){return [''+i, data.dist[i] - minVal];});
+
+        a1 = a1.concat(logP);
+
+        var bla = google.visualization.arrayToDataTable(a1);
+
+
+        var options = {
+            title: 'Output Distribution',
+            width: 600,
+            height:400,
+            hAxis: {title: 'log-Probability'},
+            vAxis: {title: 'Digit'}
+        };
+        var chart = new google.visualization.BarChart(chartDiv);
+        chart.draw(bla, options);
+
     });
 
 });
