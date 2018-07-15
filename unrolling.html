@@ -92,7 +92,7 @@ Learning Machine Learning            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-08-25T00:00:00+02:00"> Thu 25 August 2016</time>
+        <i class="fa fa-calendar"></i><time datetime="2016-08-25T00:00:00+02:00"> Don 25 August 2016</time>
     </span>
 
 
@@ -271,6 +271,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -291,11 +292,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -984,71 +980,75 @@ h6:hover .anchor-link {
   font-style: italic;
 }
 </style>
-<style type="text/css"> .highlight pre  .hll { background-color: #ffffcc }
- .highlight pre   { background: #f8f8f8; }
- .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
- .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
- .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
- .highlight pre  .o { color: #666666 } /* Operator */
- .highlight pre  .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
- .highlight pre  .cm { color: #408080; font-style: italic } /* Comment.Multiline */
- .highlight pre  .cp { color: #BC7A00 } /* Comment.Preproc */
- .highlight pre  .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
- .highlight pre  .c1 { color: #408080; font-style: italic } /* Comment.Single */
- .highlight pre  .cs { color: #408080; font-style: italic } /* Comment.Special */
- .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
- .highlight pre  .ge { font-style: italic } /* Generic.Emph */
- .highlight pre  .gr { color: #FF0000 } /* Generic.Error */
- .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
- .highlight pre  .gi { color: #00A000 } /* Generic.Inserted */
- .highlight pre  .go { color: #888888 } /* Generic.Output */
- .highlight pre  .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
- .highlight pre  .gs { font-weight: bold } /* Generic.Strong */
- .highlight pre  .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
- .highlight pre  .gt { color: #0044DD } /* Generic.Traceback */
- .highlight pre  .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
- .highlight pre  .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
- .highlight pre  .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
- .highlight pre  .kp { color: #008000 } /* Keyword.Pseudo */
- .highlight pre  .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
- .highlight pre  .kt { color: #B00040 } /* Keyword.Type */
- .highlight pre  .m { color: #666666 } /* Literal.Number */
- .highlight pre  .s { color: #BA2121 } /* Literal.String */
- .highlight pre  .na { color: #7D9029 } /* Name.Attribute */
- .highlight pre  .nb { color: #008000 } /* Name.Builtin */
- .highlight pre  .nc { color: #0000FF; font-weight: bold } /* Name.Class */
- .highlight pre  .no { color: #880000 } /* Name.Constant */
- .highlight pre  .nd { color: #AA22FF } /* Name.Decorator */
- .highlight pre  .ni { color: #999999; font-weight: bold } /* Name.Entity */
- .highlight pre  .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
- .highlight pre  .nf { color: #0000FF } /* Name.Function */
- .highlight pre  .nl { color: #A0A000 } /* Name.Label */
- .highlight pre  .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
- .highlight pre  .nt { color: #008000; font-weight: bold } /* Name.Tag */
- .highlight pre  .nv { color: #19177C } /* Name.Variable */
- .highlight pre  .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
- .highlight pre  .w { color: #bbbbbb } /* Text.Whitespace */
- .highlight pre  .mb { color: #666666 } /* Literal.Number.Bin */
- .highlight pre  .mf { color: #666666 } /* Literal.Number.Float */
- .highlight pre  .mh { color: #666666 } /* Literal.Number.Hex */
- .highlight pre  .mi { color: #666666 } /* Literal.Number.Integer */
- .highlight pre  .mo { color: #666666 } /* Literal.Number.Oct */
- .highlight pre  .sb { color: #BA2121 } /* Literal.String.Backtick */
- .highlight pre  .sc { color: #BA2121 } /* Literal.String.Char */
- .highlight pre  .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
- .highlight pre  .s2 { color: #BA2121 } /* Literal.String.Double */
- .highlight pre  .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
- .highlight pre  .sh { color: #BA2121 } /* Literal.String.Heredoc */
- .highlight pre  .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
- .highlight pre  .sx { color: #008000 } /* Literal.String.Other */
- .highlight pre  .sr { color: #BB6688 } /* Literal.String.Regex */
- .highlight pre  .s1 { color: #BA2121 } /* Literal.String.Single */
- .highlight pre  .ss { color: #19177C } /* Literal.String.Symbol */
- .highlight pre  .bp { color: #008000 } /* Name.Builtin.Pseudo */
- .highlight pre  .vc { color: #19177C } /* Name.Variable.Class */
- .highlight pre  .vg { color: #19177C } /* Name.Variable.Global */
- .highlight pre  .vi { color: #19177C } /* Name.Variable.Instance */
- .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
 <style type="text/css">
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
 .ansi-black-fg { color: #3E424D; }
@@ -1086,8 +1086,7 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1096,12 +1095,11 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h3><p>RNNs have recently drawn much attention due to their successful application to many difficult tasks. There are many great blog posts out there, e.g. <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">this</a> one, which I found particularly helpful.</p>
+<h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#194;&#182;</a></h3><p>RNNs have recently drawn much attention due to their successful application to many difficult tasks. There are many great blog posts out there, e.g. <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">this</a> one, which I found particularly helpful.</p>
 <p>I got interested in RNNs a while ago for a research project and found Theano a great tool to learn how to use them.</p>
 <p><a href="http://deeplearning.net/software/theano/index.html">Theano</a> is an amazing piece of software.
 It enables the user to conveniently compose mathematical expressions using a library of pre-defined operations. 
@@ -1116,12 +1114,11 @@ It is mainly used to define differentiable multi-variate real-valued functions t
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#182;</a></h4><p>In what follows the following version of Theano is used</p>
+<h4 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#194;&#182;</a></h4><p>In what follows the following version of Theano is used</p>
 <div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">theano</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version</span>
 </pre></div>
 
@@ -1162,7 +1159,11 @@ It is mainly used to define differentiable multi-variate real-valued functions t
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Using gpu device 0: Tesla C2070 (CNMeM is enabled with initial size: 95.0% of memory, cuDNN not available)
 </pre>
@@ -1173,12 +1174,11 @@ It is mainly used to define differentiable multi-variate real-valued functions t
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Recurrent-Neural-Networks">Recurrent Neural Networks<a class="anchor-link" href="#Recurrent-Neural-Networks">&#182;</a></h3><p>We would like to model sequences of objects some input space $\mathcal{X}$. Here, we think of $\mathcal{X}$ as a discrete set of size $M$, e.g. representing a vocabulary.
+<h3 id="Recurrent-Neural-Networks">Recurrent Neural Networks<a class="anchor-link" href="#Recurrent-Neural-Networks">&#194;&#182;</a></h3><p>We would like to model sequences of objects some input space $\mathcal{X}$. Here, we think of $\mathcal{X}$ as a discrete set of size $M$, e.g. representing a vocabulary.
 RNNs can be thought of transforming a sequence $x = [x_1, \ldots, x_B], x_t \in \mathcal{X}$ to a sequence of real-valued vectors of dimension $D$, which we will refer to as hidden vectors:</p>
 $$
 [x_1,\ldots,x_B] \mapsto [{\bf h}_1, \ldots, {\bf h}_B]
@@ -1221,8 +1221,7 @@ The initial hidden vector ${\bf h}_0$ is given and could be all zeros, a constan
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1232,12 +1231,11 @@ Therefore, the function <code>stepN()</code> takes the numpy versions for matrix
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="A-Generative-Model-For-Sequences">A Generative Model For Sequences<a class="anchor-link" href="#A-Generative-Model-For-Sequences">&#182;</a></h3><p>At this stage one may ask what to do with the hidden vectors. One of the strengths of RNNs and neural networks in general is their flexibility. The hidden vectors as a representation or summary of what the network has seen so far can be used in various ways by passing it through an appropriate output layer.
+<h3 id="A-Generative-Model-For-Sequences">A Generative Model For Sequences<a class="anchor-link" href="#A-Generative-Model-For-Sequences">&#194;&#182;</a></h3><p>At this stage one may ask what to do with the hidden vectors. One of the strengths of RNNs and neural networks in general is their flexibility. The hidden vectors as a representation or summary of what the network has seen so far can be used in various ways by passing it through an appropriate output layer.
 A natural question is to ask after having seen the first $t$ elements of a sequence what a likely $t+1$-th element could be.
 This question could be answered if we had a way to specify a distribution over $\mathcal{X}$ given the sequence up to element $t$: $P_t := P(X_{t+1} \mid X_{1},\ldots, X_{t})$.
 This would gives us a generative sequence model in the sense that we could sample sequences element by element updating the distribution as we go.
@@ -1282,8 +1280,7 @@ In order to comply with more standard machine learning terminology, we will comp
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1292,12 +1289,11 @@ In order to comply with more standard machine learning terminology, we will comp
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Theano-Implementation">Theano Implementation<a class="anchor-link" href="#Theano-Implementation">&#182;</a></h3><p>We present the theano implementation top-down, starting with the definition of the loss function. It accepts hidden vectors and the sequence to predict. In addition to the loss, it returns also the symbolic gradients, which is just a matter of a call to <a href="http://deeplearning.net/software/theano/tutorial/gradients.html"><code>theano.grad</code></a>:</p>
+<h3 id="Theano-Implementation">Theano Implementation<a class="anchor-link" href="#Theano-Implementation">&#194;&#182;</a></h3><p>We present the theano implementation top-down, starting with the definition of the loss function. It accepts hidden vectors and the sequence to predict. In addition to the loss, it returns also the symbolic gradients, which is just a matter of a call to <a href="http://deeplearning.net/software/theano/tutorial/gradients.html"><code>theano.grad</code></a>:</p>
 
 </div>
 </div>
@@ -1321,8 +1317,7 @@ In order to comply with more standard machine learning terminology, we will comp
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1374,12 +1369,11 @@ Here, we chose to define a function that computes the value of the loss for a se
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Unrolling-Loops-in-Theano">Unrolling Loops in Theano<a class="anchor-link" href="#Unrolling-Loops-in-Theano">&#182;</a></h3><p>Loops in Theano are typically realized using the <a href="http://deeplearning.net/software/theano/library/scan.html"><code>scan</code></a> operator. 
+<h3 id="Unrolling-Loops-in-Theano">Unrolling Loops in Theano<a class="anchor-link" href="#Unrolling-Loops-in-Theano">&#194;&#182;</a></h3><p>Loops in Theano are typically realized using the <a href="http://deeplearning.net/software/theano/library/scan.html"><code>scan</code></a> operator. 
 My first attempt at implementing RNNs using scan resulted in somewhat slow code, which I tried to optimize.
 I read somewhere that unrolling <code>scan</code> might help, but at first did not understand how to do it.
 The following code represents my current understanding which I wanted to share as I was quite happy with the speedups I achieved.</p>
@@ -1404,8 +1398,7 @@ The following code represents my current understanding which I wanted to share a
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1433,12 +1426,11 @@ The following code represents my current understanding which I wanted to share a
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Running-Time-Comparison">Running-Time Comparison<a class="anchor-link" href="#Running-Time-Comparison">&#182;</a></h3><p>The code below compares the scan version to the unrolled version in terms of compile time and running time for small and large values of $M$ and different sequence lengths. $D$ is fixed and the parameter matrices are initialized randomly.</p>
+<h3 id="Running-Time-Comparison">Running-Time Comparison<a class="anchor-link" href="#Running-Time-Comparison">&#194;&#182;</a></h3><p>The code below compares the scan version to the unrolled version in terms of compile time and running time for small and large values of $M$ and different sequence lengths. $D$ is fixed and the parameter matrices are initialized randomly.</p>
 
 </div>
 </div>
@@ -1504,8 +1496,7 @@ The following code represents my current understanding which I wanted to share a
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1544,12 +1535,11 @@ The following code represents my current understanding which I wanted to share a
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Results">Results<a class="anchor-link" href="#Results">&#182;</a></h3><h4 id="Running-Time">Running Time<a class="anchor-link" href="#Running-Time">&#182;</a></h4><p>The plots below compare the running time of the two RNN implementations for three different sequence lengths.
+<h3 id="Results">Results<a class="anchor-link" href="#Results">&#194;&#182;</a></h3><h4 id="Running-Time">Running Time<a class="anchor-link" href="#Running-Time">&#194;&#182;</a></h4><p>The plots below compare the running time of the two RNN implementations for three different sequence lengths.
 For a relatively small value of $M$ both implementations are relatively close.
 In some applications however, the size of the input space can easily be on the order of $10^5$, e.g. sequences of words of documents in large corpora of text. For a larger value of $M$ we see that the unrolled version is much faster.
 Checking the Theano profiler also indicates that scan is the culprit.
@@ -1574,7 +1564,11 @@ I am still trying to figure out, why this is the case.</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 
 <div class="output_svg output_subarea ">
 
@@ -3483,12 +3477,11 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Compile-Time">Compile Time<a class="anchor-link" href="#Compile-Time">&#182;</a></h4><p>The downside of unrolling is the increase in compile time illustrtated below, which is actually quite dramatic (note the log scale of the y-axis).
+<h4 id="Compile-Time">Compile Time<a class="anchor-link" href="#Compile-Time">&#194;&#182;</a></h4><p>The downside of unrolling is the increase in compile time illustrtated below, which is actually quite dramatic (note the log scale of the y-axis).
 As expected, the scaling does not depend on the input size, i.e. $M$, but rather on the length of the sequence for the unrolled implementation, in contrast to the scan version which is agnostic to the sequence length at compile time.
 This can certainly be a nuisance while prototyping, but a minor price to pay in the light of the gains in execution time demonstrated above. Furthermore, the impact of the compile time can be to an extent further reduced by precompiling and pickling Theano expressions.</p>
 
@@ -3511,7 +3504,11 @@ This can certainly be a nuisance while prototyping, but a minor price to pay in 
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 
 <div class="output_svg output_subarea ">
 
@@ -5488,17 +5485,19 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3><p>I find the scaling behaviour a bit suspicious and do not rule out a mistake in the configuration. I was, however, able to reproduce it on another machine where I could install newer software and drivers.
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#194;&#182;</a></h3><p>I find the scaling behaviour a bit suspicious and do not rule out a mistake in the configuration. I was, however, able to reproduce it on another machine where I could install newer software and drivers.
 For me, avoiding the use of scan was a viable solution to get the job done, but it would be great to better understand the cause of this discrepancy. I hope this tutorial is useful for someone getting started with RNNs in Theano and would appreciate any pointers to better understand this issue.</p>
 
 </div>
 </div>
 </div>
+ 
+
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
@@ -5553,7 +5552,7 @@ For me, avoiding the use of scan was a viable solution to get the job done, but 
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2016 yjk21
+         <div class="col-xs-10">&copy; 2017 yjk21
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>

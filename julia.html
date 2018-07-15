@@ -268,6 +268,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -288,11 +289,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -981,71 +977,75 @@ h6:hover .anchor-link {
   font-style: italic;
 }
 </style>
-<style type="text/css"> .highlight pre  .hll { background-color: #ffffcc }
- .highlight pre   { background: #f8f8f8; }
- .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
- .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
- .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
- .highlight pre  .o { color: #666666 } /* Operator */
- .highlight pre  .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
- .highlight pre  .cm { color: #408080; font-style: italic } /* Comment.Multiline */
- .highlight pre  .cp { color: #BC7A00 } /* Comment.Preproc */
- .highlight pre  .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
- .highlight pre  .c1 { color: #408080; font-style: italic } /* Comment.Single */
- .highlight pre  .cs { color: #408080; font-style: italic } /* Comment.Special */
- .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
- .highlight pre  .ge { font-style: italic } /* Generic.Emph */
- .highlight pre  .gr { color: #FF0000 } /* Generic.Error */
- .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
- .highlight pre  .gi { color: #00A000 } /* Generic.Inserted */
- .highlight pre  .go { color: #888888 } /* Generic.Output */
- .highlight pre  .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
- .highlight pre  .gs { font-weight: bold } /* Generic.Strong */
- .highlight pre  .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
- .highlight pre  .gt { color: #0044DD } /* Generic.Traceback */
- .highlight pre  .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
- .highlight pre  .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
- .highlight pre  .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
- .highlight pre  .kp { color: #008000 } /* Keyword.Pseudo */
- .highlight pre  .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
- .highlight pre  .kt { color: #B00040 } /* Keyword.Type */
- .highlight pre  .m { color: #666666 } /* Literal.Number */
- .highlight pre  .s { color: #BA2121 } /* Literal.String */
- .highlight pre  .na { color: #7D9029 } /* Name.Attribute */
- .highlight pre  .nb { color: #008000 } /* Name.Builtin */
- .highlight pre  .nc { color: #0000FF; font-weight: bold } /* Name.Class */
- .highlight pre  .no { color: #880000 } /* Name.Constant */
- .highlight pre  .nd { color: #AA22FF } /* Name.Decorator */
- .highlight pre  .ni { color: #999999; font-weight: bold } /* Name.Entity */
- .highlight pre  .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
- .highlight pre  .nf { color: #0000FF } /* Name.Function */
- .highlight pre  .nl { color: #A0A000 } /* Name.Label */
- .highlight pre  .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
- .highlight pre  .nt { color: #008000; font-weight: bold } /* Name.Tag */
- .highlight pre  .nv { color: #19177C } /* Name.Variable */
- .highlight pre  .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
- .highlight pre  .w { color: #bbbbbb } /* Text.Whitespace */
- .highlight pre  .mb { color: #666666 } /* Literal.Number.Bin */
- .highlight pre  .mf { color: #666666 } /* Literal.Number.Float */
- .highlight pre  .mh { color: #666666 } /* Literal.Number.Hex */
- .highlight pre  .mi { color: #666666 } /* Literal.Number.Integer */
- .highlight pre  .mo { color: #666666 } /* Literal.Number.Oct */
- .highlight pre  .sb { color: #BA2121 } /* Literal.String.Backtick */
- .highlight pre  .sc { color: #BA2121 } /* Literal.String.Char */
- .highlight pre  .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
- .highlight pre  .s2 { color: #BA2121 } /* Literal.String.Double */
- .highlight pre  .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
- .highlight pre  .sh { color: #BA2121 } /* Literal.String.Heredoc */
- .highlight pre  .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
- .highlight pre  .sx { color: #008000 } /* Literal.String.Other */
- .highlight pre  .sr { color: #BB6688 } /* Literal.String.Regex */
- .highlight pre  .s1 { color: #BA2121 } /* Literal.String.Single */
- .highlight pre  .ss { color: #19177C } /* Literal.String.Symbol */
- .highlight pre  .bp { color: #008000 } /* Name.Builtin.Pseudo */
- .highlight pre  .vc { color: #19177C } /* Name.Variable.Class */
- .highlight pre  .vg { color: #19177C } /* Name.Variable.Global */
- .highlight pre  .vi { color: #19177C } /* Name.Variable.Instance */
- .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
 <style type="text/css">
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
 .ansi-black-fg { color: #3E424D; }
@@ -1083,8 +1083,7 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1099,12 +1098,11 @@ There tons of other interesting features, most notably simple parallel processin
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="The-Task:-Computing-Hidden-States-of-a-Recurrent-Neural-Network">The Task: Computing Hidden States of a Recurrent Neural Network<a class="anchor-link" href="#The-Task:-Computing-Hidden-States-of-a-Recurrent-Neural-Network">&#182;</a></h3><p>In many scientific computing applications, we can often get good performance out of interpreted languages, such as Python, R, or MATLAB, by expressing the most expensive computations in terms of matrix operations that are then outsourced to highly optimized library routines.
+<h3 id="The-Task:-Computing-Hidden-States-of-a-Recurrent-Neural-Network">The Task: Computing Hidden States of a Recurrent Neural Network<a class="anchor-link" href="#The-Task:-Computing-Hidden-States-of-a-Recurrent-Neural-Network">&#194;&#182;</a></h3><p>In many scientific computing applications, we can often get good performance out of interpreted languages, such as Python, R, or MATLAB, by expressing the most expensive computations in terms of matrix operations that are then outsourced to highly optimized library routines.
 However, this is not always possible or requires some <code>repmat</code> and <code>reshape</code> acrobatics where a simple loop would have been a better and more readable choice.</p>
 <p>One such example is the computation underlying recurrent neural networks (RNNs).
 RNNs are being successfully used to capture the latent dynamics that govern the generation of complex sequential data, such as natural language. See this <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">blog post</a> for an excellent introduction. We use the same setup in that we would like to map a sequence $x = [x_t]_{t=1,\ldots,T}$ with elements
@@ -1122,12 +1120,11 @@ What we are after is to quantify the constant factors that can make a big differ
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Python-Implementation">Python Implementation<a class="anchor-link" href="#Python-Implementation">&#182;</a></h3><p>The implementation in Python is straight-forward. We use numpy (linked with Intel MKL) to deal with matrix multiplication and measure the execution time within Python to exclude the overhead of PyCall (which is small).</p>
+<h3 id="Python-Implementation">Python Implementation<a class="anchor-link" href="#Python-Implementation">&#194;&#182;</a></h3><p>The implementation in Python is straight-forward. We use numpy (linked with Intel MKL) to deal with matrix multiplication and measure the execution time within Python to exclude the overhead of PyCall (which is small).</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
@@ -1149,12 +1146,11 @@ What we are after is to quantify the constant factors that can make a big differ
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Julia-Implementation">Julia Implementation<a class="anchor-link" href="#Julia-Implementation">&#182;</a></h3><p>The implementation in Julia looks not much different.</p>
+<h3 id="Julia-Implementation">Julia Implementation<a class="anchor-link" href="#Julia-Implementation">&#194;&#182;</a></h3><p>The implementation in Julia looks not much different.</p>
 
 </div>
 </div>
@@ -1167,14 +1163,14 @@ What we are after is to quantify the constant factors that can make a big differ
 <div class=" highlight hl-julia"><pre><span></span><span class="n">include</span><span class="p">(</span><span class="s">&quot;setup.jl&quot;</span><span class="p">)</span>
 <span class="n">σ</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">./</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">v</span><span class="p">))</span>
 
-<span class="k">function</span><span class="nf"> rnnstep</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">htm1</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">σ</span><span class="p">(</span><span class="n">Wh</span> <span class="o">*</span> <span class="n">htm1</span> <span class="o">+</span> <span class="n">Wi</span><span class="p">[:,</span><span class="n">xt</span><span class="p">])</span>
+<span class="k">function</span> <span class="n">rnnstep</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">htm1</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">σ</span><span class="p">(</span><span class="n">Wh</span> <span class="o">*</span> <span class="n">htm1</span> <span class="o">+</span> <span class="n">Wi</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">xt</span><span class="p">])</span>
 <span class="k">end</span>
 
-<span class="k">function</span><span class="nf"> jlfwd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span><span class="p">)</span>
+<span class="k">function</span> <span class="n">jlfwd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span><span class="p">)</span>
     <span class="n">ht</span> <span class="o">=</span> <span class="n">h0</span>
     <span class="n">tic</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">xt</span> <span class="k">in</span> <span class="n">x</span>
+    <span class="k">for</span> <span class="n">xt</span> <span class="kp">in</span> <span class="n">x</span>
         <span class="n">ht</span> <span class="o">=</span> <span class="n">rnnstep</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">ht</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span><span class="p">)</span>
     <span class="k">end</span>
     <span class="n">toc</span> <span class="o">=</span> <span class="n">toq</span><span class="p">()</span>
@@ -1187,12 +1183,11 @@ What we are after is to quantify the constant factors that can make a big differ
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="C++-Implementation">C++ Implementation<a class="anchor-link" href="#C++-Implementation">&#182;</a></h3><p>The C++ implementation uses the excellent <a href="http://arma.sourceforge.net/">Armadillo</a> library.
+<h3 id="C++-Implementation">C++ Implementation<a class="anchor-link" href="#C++-Implementation">&#194;&#182;</a></h3><p>The C++ implementation uses the excellent <a href="http://arma.sourceforge.net/">Armadillo</a> library.
 For matrix multiplications (when using larger matrices) we configure Armadillo to link with an optimized BLAS implementation (in this case Intel MKL).</p>
 <div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;armadillo&gt;</span><span class="cp"></span>
@@ -1251,13 +1246,13 @@ For matrix multiplications (when using larger matrices) we configure Armadillo t
 </pre></div>
 <p>We compile this using the flags <code>g++ --std=c++1 -O3</code> and build a shared object (using gcc version 4.8.4).
 If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory included in <code>LD_LIBRARY_PATH</code>, we can call <code>fwd</code> from Julia using <code>ccall</code>:</p>
-<div class="highlight"><pre><span></span><span class="k">ccall</span><span class="p">((:</span><span class="n">fwd</span><span class="p">,</span><span class="s">&quot;libcppfwd&quot;</span><span class="p">),</span> 
-      <span class="n">Cdouble</span><span class="p">,</span> 
-      <span class="p">(</span> <span class="n">Ptr</span><span class="p">{</span><span class="kt">Int</span><span class="p">},</span> <span class="c"># signature</span>
+<div class="highlight"><pre><span></span><span class="k">ccall</span><span class="p">((</span><span class="o">:</span><span class="n">fwd</span><span class="p">,</span><span class="s">&quot;libcppfwd&quot;</span><span class="p">),</span> 
+      <span class="kt">Cdouble</span><span class="p">,</span> 
+      <span class="p">(</span> <span class="kt">Ptr</span><span class="p">{</span><span class="kt">Int</span><span class="p">},</span> <span class="c"># signature</span>
         <span class="kt">Int32</span><span class="p">,</span>
-        <span class="n">Ptr</span><span class="p">{</span><span class="n">Cdouble</span><span class="p">},</span>
-        <span class="n">Ptr</span><span class="p">{</span><span class="n">Cdouble</span><span class="p">},</span>
-        <span class="n">Ptr</span><span class="p">{</span><span class="n">Cdouble</span><span class="p">},</span>
+        <span class="kt">Ptr</span><span class="p">{</span><span class="kt">Cdouble</span><span class="p">},</span>
+        <span class="kt">Ptr</span><span class="p">{</span><span class="kt">Cdouble</span><span class="p">},</span>
+        <span class="kt">Ptr</span><span class="p">{</span><span class="kt">Cdouble</span><span class="p">},</span>
         <span class="kt">Int32</span><span class="p">,</span>
         <span class="kt">Int32</span> <span class="p">),</span> 
       <span class="n">x</span><span class="p">,</span>      <span class="c"># sequence </span>
@@ -1272,12 +1267,11 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Measuring-Running-Time">Measuring Running Time<a class="anchor-link" href="#Measuring-Running-Time">&#182;</a></h3><p>In order to get an idea of the gain in efficiency due to the language, we use very small parameter matrices, such that differences in the BLAS implementation are negligible.</p>
+<h3 id="Measuring-Running-Time">Measuring Running Time<a class="anchor-link" href="#Measuring-Running-Time">&#194;&#182;</a></h3><p>In order to get an idea of the gain in efficiency due to the language, we use very small parameter matrices, such that differences in the BLAS implementation are negligible.</p>
 <p>We compute the forward pass for sequences of increasing length for a number of times and report the time of the fastest run.</p>
 
 </div>
@@ -1295,7 +1289,7 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
 <span class="c">#Problem dimensions</span>
 <span class="n">M</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">D</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">logSlens</span> <span class="o">=</span> <span class="mi">3</span><span class="p">:</span><span class="mi">16</span>
+<span class="n">logSlens</span> <span class="o">=</span> <span class="mi">3</span><span class="o">:</span><span class="mi">16</span>
 <span class="n">Slens</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">.^</span> <span class="p">(</span><span class="n">logSlens</span><span class="p">)</span>
 
 <span class="c">#Generate model parameters</span>
@@ -1305,16 +1299,16 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
 <span class="n">h0</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
 
 <span class="c">#Generate input sequences</span>
-<span class="n">Xs</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">S</span> <span class="o">-&gt;</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">M</span><span class="p">,</span> <span class="n">S</span><span class="p">),</span> <span class="n">Slens</span><span class="p">)</span>
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">S</span> <span class="o">-&gt;</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="n">M</span><span class="p">,</span> <span class="n">S</span><span class="p">),</span> <span class="n">Slens</span><span class="p">)</span>
 <span class="n">nRuns</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">tjl</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">Slens</span><span class="p">),</span> <span class="n">nRuns</span><span class="p">)</span>
 <span class="n">tpy</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">Slens</span><span class="p">),</span> <span class="n">nRuns</span><span class="p">)</span>
 <span class="n">tcpp</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">Slens</span><span class="p">),</span> <span class="n">nRuns</span><span class="p">)</span>
 <span class="n">hcpp_i</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">h0</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
     <span class="n">xpy</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="c">#Python and C++ are 0-based!</span>
-    <span class="k">for</span> <span class="n">jt</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">nRuns</span>
-        <span class="n">hcpp_i</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">h0</span>
+    <span class="k">for</span> <span class="n">jt</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">nRuns</span>
+        <span class="n">hcpp_i</span><span class="p">[</span><span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="n">h0</span>
         <span class="n">hjl_i</span><span class="p">,</span> <span class="n">tjl_i</span> <span class="o">=</span> <span class="n">jlfwd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wijl</span><span class="p">)</span>
         <span class="n">tcpp_i</span> <span class="o">=</span> <span class="n">mymod</span><span class="o">.</span><span class="n">cppfwd!</span><span class="p">(</span><span class="n">xpy</span><span class="p">,</span> <span class="n">hcpp_i</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wijl</span><span class="p">)</span>
         <span class="n">hpy_i</span><span class="p">,</span> <span class="n">tpy_i</span> <span class="o">=</span> <span class="n">pyfwd</span><span class="p">(</span><span class="n">xpy</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wipy</span><span class="p">)</span>
@@ -1322,9 +1316,9 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
         <span class="n">tpy</span><span class="p">[</span><span class="n">it</span><span class="p">,</span> <span class="n">jt</span><span class="p">]</span> <span class="o">=</span> <span class="n">tpy_i</span>
         <span class="n">tcpp</span><span class="p">[</span><span class="n">it</span><span class="p">,</span><span class="n">jt</span><span class="p">]</span> <span class="o">=</span> <span class="n">tcpp_i</span>
         
-        <span class="nb">assert</span><span class="p">(</span><span class="n">vecnorm</span><span class="p">(</span><span class="n">hcpp_i</span> <span class="o">-</span> <span class="n">hjl_i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">)</span>
-        <span class="nb">assert</span><span class="p">(</span><span class="n">vecnorm</span><span class="p">(</span><span class="n">hcpp_i</span> <span class="o">-</span> <span class="n">hpy_i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">)</span>
-        <span class="nb">assert</span><span class="p">(</span><span class="n">vecnorm</span><span class="p">(</span><span class="n">hjl_i</span> <span class="o">-</span> <span class="n">hpy_i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">)</span>
+        <span class="n">assert</span><span class="p">(</span><span class="n">vecnorm</span><span class="p">(</span><span class="n">hcpp_i</span> <span class="o">-</span> <span class="n">hjl_i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">)</span>
+        <span class="n">assert</span><span class="p">(</span><span class="n">vecnorm</span><span class="p">(</span><span class="n">hcpp_i</span> <span class="o">-</span> <span class="n">hpy_i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">)</span>
+        <span class="n">assert</span><span class="p">(</span><span class="n">vecnorm</span><span class="p">(</span><span class="n">hjl_i</span> <span class="o">-</span> <span class="n">hpy_i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">)</span>
     <span class="k">end</span>
 <span class="k">end</span>
 <span class="n">tpy</span><span class="p">,</span> <span class="n">tjl</span><span class="p">,</span> <span class="n">tcpp</span> <span class="o">=</span> <span class="n">minimum</span><span class="p">(</span><span class="n">tpy</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">minimum</span><span class="p">(</span><span class="n">tjl</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">minimum</span><span class="p">(</span><span class="n">tcpp</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
@@ -1335,12 +1329,11 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Results">Results<a class="anchor-link" href="#Results">&#182;</a></h3><p>Here, we plot the running time of the different versions. The speedup appears to be quite constant over all input sizes. The Julia code is about 15 times faster than Python, and C++ is about 2.5 times faster than Julia.</p>
+<h3 id="Results">Results<a class="anchor-link" href="#Results">&#194;&#182;</a></h3><p>Here, we plot the running time of the different versions. The speedup appears to be quite constant over all input sizes. The Julia code is about 15 times faster than Python, and C++ is about 2.5 times faster than Julia.</p>
 
 </div>
 </div>
@@ -1353,7 +1346,7 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
 <div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">PyPlot</span>
 <span class="n">ion</span><span class="p">()</span>
 <span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">Slens</span><span class="p">)</span>
+<span class="n">left</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">Slens</span><span class="p">)</span>
 <span class="n">bar</span><span class="p">(</span><span class="n">left</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="n">tpy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;g&quot;</span><span class="p">);</span>
 <span class="n">bar</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="n">tjl</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">);</span>
 <span class="n">bar</span><span class="p">(</span><span class="n">left</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="n">tcpp</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;r&quot;</span><span class="p">);</span>
@@ -1378,7 +1371,11 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -1416,7 +1413,11 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -1429,12 +1430,11 @@ If the shared library (e.g. <code>libcppfwd.so</code>) is placed in a directory 
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3><p>This example illustrates and quantify the benefits of using Julia.
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#194;&#182;</a></h3><p>This example illustrates and quantify the benefits of using Julia.
 Of course it is somewhat contrived and ignores important aspects such as the effect of memory management in more extreme scenarios.
 Still, it gives a rough idea of the kind of speedup one can expect in many relevant scenarios where loops cannot be avoided.</p>
 <p>Personally, I find Julia extremely pleasant to work with and the technology it is based on quite impressive and promising. I hope it will continue to do well.</p>
@@ -1442,6 +1442,9 @@ Still, it gives a rough idea of the kind of speedup one can expect in many relev
 </div>
 </div>
 </div>
+ 
+
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
@@ -1496,7 +1499,7 @@ Still, it gives a rough idea of the kind of speedup one can expect in many relev
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2016 yjk21
+         <div class="col-xs-10">&copy; 2017 yjk21
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>

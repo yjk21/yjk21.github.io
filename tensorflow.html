@@ -90,7 +90,7 @@ Learning Machine Learning            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-08-25T00:00:00+02:00"> Thu 25 August 2016</time>
+        <i class="fa fa-calendar"></i><time datetime="2016-08-25T00:00:00+02:00"> Don 25 August 2016</time>
     </span>
 
 
@@ -265,6 +265,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -285,11 +286,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -978,71 +974,75 @@ h6:hover .anchor-link {
   font-style: italic;
 }
 </style>
-<style type="text/css"> .highlight pre  .hll { background-color: #ffffcc }
- .highlight pre   { background: #f8f8f8; }
- .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
- .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
- .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
- .highlight pre  .o { color: #666666 } /* Operator */
- .highlight pre  .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
- .highlight pre  .cm { color: #408080; font-style: italic } /* Comment.Multiline */
- .highlight pre  .cp { color: #BC7A00 } /* Comment.Preproc */
- .highlight pre  .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
- .highlight pre  .c1 { color: #408080; font-style: italic } /* Comment.Single */
- .highlight pre  .cs { color: #408080; font-style: italic } /* Comment.Special */
- .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
- .highlight pre  .ge { font-style: italic } /* Generic.Emph */
- .highlight pre  .gr { color: #FF0000 } /* Generic.Error */
- .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
- .highlight pre  .gi { color: #00A000 } /* Generic.Inserted */
- .highlight pre  .go { color: #888888 } /* Generic.Output */
- .highlight pre  .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
- .highlight pre  .gs { font-weight: bold } /* Generic.Strong */
- .highlight pre  .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
- .highlight pre  .gt { color: #0044DD } /* Generic.Traceback */
- .highlight pre  .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
- .highlight pre  .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
- .highlight pre  .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
- .highlight pre  .kp { color: #008000 } /* Keyword.Pseudo */
- .highlight pre  .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
- .highlight pre  .kt { color: #B00040 } /* Keyword.Type */
- .highlight pre  .m { color: #666666 } /* Literal.Number */
- .highlight pre  .s { color: #BA2121 } /* Literal.String */
- .highlight pre  .na { color: #7D9029 } /* Name.Attribute */
- .highlight pre  .nb { color: #008000 } /* Name.Builtin */
- .highlight pre  .nc { color: #0000FF; font-weight: bold } /* Name.Class */
- .highlight pre  .no { color: #880000 } /* Name.Constant */
- .highlight pre  .nd { color: #AA22FF } /* Name.Decorator */
- .highlight pre  .ni { color: #999999; font-weight: bold } /* Name.Entity */
- .highlight pre  .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
- .highlight pre  .nf { color: #0000FF } /* Name.Function */
- .highlight pre  .nl { color: #A0A000 } /* Name.Label */
- .highlight pre  .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
- .highlight pre  .nt { color: #008000; font-weight: bold } /* Name.Tag */
- .highlight pre  .nv { color: #19177C } /* Name.Variable */
- .highlight pre  .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
- .highlight pre  .w { color: #bbbbbb } /* Text.Whitespace */
- .highlight pre  .mb { color: #666666 } /* Literal.Number.Bin */
- .highlight pre  .mf { color: #666666 } /* Literal.Number.Float */
- .highlight pre  .mh { color: #666666 } /* Literal.Number.Hex */
- .highlight pre  .mi { color: #666666 } /* Literal.Number.Integer */
- .highlight pre  .mo { color: #666666 } /* Literal.Number.Oct */
- .highlight pre  .sb { color: #BA2121 } /* Literal.String.Backtick */
- .highlight pre  .sc { color: #BA2121 } /* Literal.String.Char */
- .highlight pre  .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
- .highlight pre  .s2 { color: #BA2121 } /* Literal.String.Double */
- .highlight pre  .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
- .highlight pre  .sh { color: #BA2121 } /* Literal.String.Heredoc */
- .highlight pre  .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
- .highlight pre  .sx { color: #008000 } /* Literal.String.Other */
- .highlight pre  .sr { color: #BB6688 } /* Literal.String.Regex */
- .highlight pre  .s1 { color: #BA2121 } /* Literal.String.Single */
- .highlight pre  .ss { color: #19177C } /* Literal.String.Symbol */
- .highlight pre  .bp { color: #008000 } /* Name.Builtin.Pseudo */
- .highlight pre  .vc { color: #19177C } /* Name.Variable.Class */
- .highlight pre  .vg { color: #19177C } /* Name.Variable.Global */
- .highlight pre  .vi { color: #19177C } /* Name.Variable.Instance */
- .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
 <style type="text/css">
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
 .ansi-black-fg { color: #3E424D; }
@@ -1080,8 +1080,7 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1116,12 +1115,11 @@ This post contains some notes on making the transition from Theano to Tensorflow
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#182;</a></h3><p>Let's start with a simple linear regression problem based on the following generative model:</p>
+<h3 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#194;&#182;</a></h3><p>Let's start with a simple linear regression problem based on the following generative model:</p>
 <p>A weight vector ${\bf w}$ is drawn from 
 $$
 P({\bf w}) = N(0, \sigma^2_p {\bf I}_D)\\
@@ -1191,14 +1189,22 @@ The numpy arrays here are converted to single precision <code>dtype</code>, to b
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>w: [[ 0.13682203]] what: [[ 0.13519447]] error: 0.00162755613255
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 
 <div class="output_svg output_subarea ">
 
@@ -2847,12 +2853,11 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Placeholders-and-Variables">Placeholders and Variables<a class="anchor-link" href="#Placeholders-and-Variables">&#182;</a></h3><p>In Tensorflow, we express computations in terms symbolic quantities. There are two types, <code>place_holder</code> and <code>Variable</code> which, as far as I understand, roughly correspond to Theano's tensors and shared variables, respectively.</p>
+<h3 id="Placeholders-and-Variables">Placeholders and Variables<a class="anchor-link" href="#Placeholders-and-Variables">&#194;&#182;</a></h3><p>In Tensorflow, we express computations in terms symbolic quantities. There are two types, <code>place_holder</code> and <code>Variable</code> which, as far as I understand, roughly correspond to Theano's tensors and shared variables, respectively.</p>
 <p>We will prefix Theano identifiers with <code>t</code> Tensorflow identifiers with <code>f</code>.</p>
 <p>The code below creates a function that computes $E$ and $\nabla_{\bf w} E$.</p>
 
@@ -2885,8 +2890,7 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -2915,8 +2919,7 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -2940,8 +2943,7 @@ I suppose that this additional abstraction caters to the possibility to deploy T
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -2975,7 +2977,11 @@ I suppose that this additional abstraction caters to the possibility to deploy T
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 
 <div class="output_svg output_subarea ">
 
@@ -3759,8 +3765,7 @@ Q 18.3125 60.0625 18.3125 54.390625
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -3783,8 +3788,7 @@ Q 18.3125 60.0625 18.3125 54.390625
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -3806,8 +3810,7 @@ Q 18.3125 60.0625 18.3125 54.390625
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -3830,12 +3833,11 @@ Q 18.3125 60.0625 18.3125 54.390625
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Optimization">Optimization<a class="anchor-link" href="#Optimization">&#182;</a></h3><p>We now have everything in place to solve the optimization problem.
+<h3 id="Optimization">Optimization<a class="anchor-link" href="#Optimization">&#194;&#182;</a></h3><p>We now have everything in place to solve the optimization problem.
 Here, we use gradient descent. The learning rule is implemented as show in the code below, which shows how assigments are expressed symbolically.</p>
 
 </div>
@@ -3857,8 +3859,7 @@ Here, we use gradient descent. The learning rule is implemented as show in the c
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -3887,7 +3888,11 @@ Here, we use gradient descent. The learning rule is implemented as show in the c
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Loss E(w): 0.0215857 	g-norm: 0.246392 	what: 0.123196 	error: 0.0119986095555
 Loss E(w): 0.00506148 	g-norm: 0.0218674 	what: 0.13413 	error: 0.00106490488125
@@ -3907,8 +3912,7 @@ Loss E(w): 0.00493029 	g-norm: 8.00355e-09 	what: 0.135194 	error: 8.29768834198
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -3942,7 +3946,11 @@ Loss E(w): 0.00493029 	g-norm: 8.00355e-09 	what: 0.135194 	error: 8.29768834198
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>8.29768834198e-09
 </pre>
@@ -3953,18 +3961,20 @@ Loss E(w): 0.00493029 	g-norm: 8.00355e-09 	what: 0.135194 	error: 8.29768834198
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3><p>Tensorflow looks great. I liked that it is quite close to Theano. 
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#194;&#182;</a></h3><p>Tensorflow looks great. I liked that it is quite close to Theano. 
 I am currently exploring the API, which is quite huge since it comes with a lot of built-in functionality, e.g. monitoring, visualizing computation graphs and support for RNNs. 
 Also, there are a few new concepts, such as variable scope, that I am going to look into.</p>
 
 </div>
 </div>
 </div>
+ 
+
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
@@ -4019,7 +4029,7 @@ Also, there are a few new concepts, such as variable scope, that I am going to l
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2016 yjk21
+         <div class="col-xs-10">&copy; 2017 yjk21
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
