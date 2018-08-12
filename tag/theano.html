@@ -21,6 +21,7 @@
         <meta property="og:description" content="Learning Machine Learning"/>
 
 
+
     <!-- Bootstrap -->
         <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
     <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
@@ -36,7 +37,7 @@
 <body>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -60,8 +61,11 @@ Learning Machine Learning            </a>
         <!-- /.navbar-collapse -->
     </div>
 </div> <!-- /.navbar -->
+
 <!-- Banner -->
 <!-- End Banner -->
+
+<!-- Content Container -->
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
@@ -80,12 +84,7 @@ One drawback I found was that compilation to the target backend can take a lot o
             <hr/>
             <article>
                 <h2><a href="/unrolling.html">Unrolling Theano Scans for Fun and Profit</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>TL;DR: RNN-training in Theano using Backpropagation through Time (BPTT) can be greatly accelerated by unrolling Theano's built-in loop construct. The speedups were frankly a bit surprising. Therefore I decided to write a short tutorial on this.</p>
+                <div class="summary"><p>RNN-training in Theano using Backpropagation through Time (BPTT) can be greatly accelerated by unrolling Theano's built-in loop construct. The speedups were frankly a bit surprising. Therefore I decided to write a short tutorial on this.</p>
                     <a class="btn btn-default btn-xs" href="/unrolling.html">more ...</a>
                 </div>
             </article>
@@ -94,20 +93,17 @@ One drawback I found was that compilation to the target backend can take a lot o
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
-
+<!-- Sidebar -->
 <section class="well well-sm">
-    <ul class="list-group list-group-flush">
-
-
-
-
-
-    </ul>
+  <ul class="list-group list-group-flush">
+  </ul>
 </section>
-            </aside>
+<!-- End Sidebar -->            </aside>
         </div>
     </div>
 </div>
+<!-- End Content Container -->
+
 <footer>
    <div class="container">
       <hr>
@@ -128,6 +124,7 @@ One drawback I found was that compilation to the target backend can take a lot o
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
 <script src="/theme/js/respond.min.js"></script>
 
+
     <!-- Google Analytics -->
     <script type="text/javascript">
 
@@ -145,6 +142,7 @@ One drawback I found was that compilation to the target backend can take a lot o
         })();
     </script>
     <!-- End Google Analytics Code -->
+
 
 </body>
 </html>
