@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Articles by yjk21 - Learning Machine Learning</title>
+    <title>Setting up a GPU Instance on Google Compute Cloud - Learning Machine Learning</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -9,15 +9,22 @@
 
 
 
+<link rel="canonical" href="/gcp_gpu.html">
 
         <meta name="author" content="yjk21" />
+        <meta name="keywords" content="GPU,GCP" />
+        <meta name="description" content="Steps and snippets to get started with a GPU instance on Google Compute Cloud (GCP)" />
 
-    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Learning Machine Learning" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Learning Machine Learning"/>
-        <meta property="og:url" content=""/>
-        <meta property="og:description" content="Learning Machine Learning"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Setting up a GPU Instance on Google Compute Cloud"/>
+        <meta property="og:url" content="/gcp_gpu.html"/>
+        <meta property="og:description" content="Steps and snippets to get started with a GPU instance on Google Compute Cloud (GCP)"/>
+        <meta property="article:published_time" content="2018-08-12" />
+            <meta property="article:section" content="Infrastructure" />
+            <meta property="article:tag" content="GPU" />
+            <meta property="article:tag" content="GCP" />
+            <meta property="article:author" content="yjk21" />
 
 
 
@@ -68,45 +75,54 @@ Learning Machine Learning            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <article>
-                <h2><a href="/gcp_gpu.html">Setting up a GPU Instance on Google Compute Cloud</a></h2>
-                <div class="summary"><p>Steps and snippets to get started with a GPU instance on Google Compute Cloud (GCP)</p>
-                    <a class="btn btn-default btn-xs" href="/gcp_gpu.html">more ...</a>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/gcp_gpu.html"
+                       rel="bookmark"
+                       title="Permalink to Setting up a GPU Instance on Google Compute Cloud">
+                        Setting up a GPU Instance on Google Compute Cloud
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-08-12T10:20:00+02:00"> So 12 August 2018</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/gpu.html">GPU</a>
+        /
+	<a href="/tag/gcp.html">GCP</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="/tensorflow.html">Tensorflow for Theanists (Part 1)</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>So far, I have been using Theano for my neural-network related projects, and I really like using it.
-One drawback I found was that compilation to the target backend can take a lot of time, especially in some <a href="http://yjk21.github.io/blog/unrolling.html">cases</a>
-                    <a class="btn btn-default btn-xs" href="/tensorflow.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="/unrolling.html">Unrolling Theano Scans for Fun and Profit</a></h2>
-                <div class="summary"><p>RNN-training in Theano using Backpropagation through Time (BPTT) can be greatly accelerated by unrolling Theano's built-in loop construct. The speedups were frankly a bit surprising. Therefore I decided to write a short tutorial on this.</p>
-                    <a class="btn btn-default btn-xs" href="/unrolling.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="/julia.html">Julia</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A while ago I ditched MATLAB as my main development environment for my research projects. Since then I have been playing around with <a href="https://www.python.org/">Python</a>
-                    <a class="btn btn-default btn-xs" href="/julia.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
+                <p>Setting up a GPU instance for deep learning in the Google Cloud has become incredibly easy.
+Similar to Deep Learning AMIs for AWS EC2, GCP offers Deep Learning VM Images for Compute Engine (<a href="https://cloud.google.com/deep-learning-vm/docs/">docs</a>), making basic deployment a one-click procedure from the <a href="https://console.cloud.google.com/marketplace/details/click-to-deploy-images/deeplearning">Cloud Marketplace</a>.</p>
+<p>By default, the VM will be set up on a n1-highmem-2 instance (2 vCPUs, 13 GB RAM, 100 GB disk).</p>
+<p>You can attach optionally multiple GPUs to the instance</p>
+<p>You can choose between several combinations of pre-installed CUDA versions  and deep learning images.</p>
+<p>Once the VM is created, it will appear in your <a href="https://console.cloud.google.com/compute/instances">Cloud Console</a> and can be started from there.</p>
+<p>Finally, to access JupyterLab, we need to establish an ssh tunnel with local port forwarding. </p>
+<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">INSTANCE_NAME</span><span class="o">=</span><span class="s2">&quot;my-instance&quot;</span>
+gcloud compute ssh <span class="nv">$INSTANCE_NAME</span> -- -L <span class="m">8080</span>:localhost:8080
+</pre></div>
+
+
+<p>Using the gcloud cli as shown above also generates a new ssh-key pair if necessary.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3" id="sidebar">
