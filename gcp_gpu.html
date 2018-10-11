@@ -109,8 +109,8 @@ Learning Machine Learning            </a>
                 <p>Setting up a GPU instance for deep learning in the Google Cloud has become incredibly easy.
 Similar to Deep Learning AMIs for AWS EC2, GCP offers Deep Learning VM Images for Compute Engine (<a href="https://cloud.google.com/deep-learning-vm/docs/">docs</a>), making basic deployment a one-click procedure from the <a href="https://console.cloud.google.com/marketplace/details/click-to-deploy-images/deeplearning">Cloud Marketplace</a>.</p>
 <p>By default, the VM will be set up on a n1-highmem-2 instance (2 vCPUs, 13 GB RAM, 100 GB disk).</p>
-<p>You can attach optionally multiple GPUs to the instance</p>
-<p>You can choose between several combinations of pre-installed CUDA versions  and deep learning images.</p>
+<p>You can attach optionally multiple GPUs to the instance (choices: K80, P100, V100).</p>
+<p>You can choose between several combinations of pre-installed CUDA versions and deep learning images.</p>
 <p>Once the VM is created, it will appear in your <a href="https://console.cloud.google.com/compute/instances">Cloud Console</a> and can be started from there.</p>
 <p>Finally, to access JupyterLab, we need to establish an ssh tunnel with local port forwarding. </p>
 <div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">INSTANCE_NAME</span><span class="o">=</span><span class="s2">&quot;my-instance&quot;</span>
@@ -119,6 +119,19 @@ gcloud compute ssh <span class="nv">$INSTANCE_NAME</span> -- -L <span class="m">
 
 
 <p>Using the gcloud cli as shown above also generates a new ssh-key pair if necessary.</p>
+<h3>Disable ECC</h3>
+<div class="highlight"><pre><span></span>nvidia-smi -e <span class="m">0</span>
+</pre></div>
+
+
+<h3>Enable GPU Boost Clocks (K80 Specific)</h3>
+<div class="highlight"><pre><span></span>nvidia-smi -ac <span class="m">2505</span>,875
+</pre></div>
+
+
+<h3>Enable Persistence Mode</h3>
+<div class="highlight"><pre><span></span>nvidia-smi -pm <span class="m">1</span>
+</pre></div>
             </div>
             <!-- /.entry-content -->
         </article>
