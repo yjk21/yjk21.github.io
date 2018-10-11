@@ -119,18 +119,13 @@ gcloud compute ssh <span class="nv">$INSTANCE_NAME</span> -- -L <span class="m">
 
 
 <p>Using the gcloud cli as shown above also generates a new ssh-key pair if necessary.</p>
-<h3>Disable ECC</h3>
-<div class="highlight"><pre><span></span>nvidia-smi -e <span class="m">0</span>
-</pre></div>
-
-
-<h3>Enable GPU Boost Clocks (K80 Specific)</h3>
-<div class="highlight"><pre><span></span>nvidia-smi -ac <span class="m">2505</span>,875
-</pre></div>
-
-
-<h3>Enable Persistence Mode</h3>
-<div class="highlight"><pre><span></span>nvidia-smi -pm <span class="m">1</span>
+<h3>Some More Setup Tasks</h3>
+<div class="highlight"><pre><span></span><span class="c1"># Enable Persistence Mode</span>
+nvidia-smi -pm <span class="m">1</span>
+<span class="c1"># Disable ECC</span>
+nvidia-smi -e <span class="m">0</span>
+<span class="c1"># Enable GPU Boost Clocks (K80 Specific)</span>
+nvidia-smi -ac <span class="m">2505</span>,875
 </pre></div>
             </div>
             <!-- /.entry-content -->
