@@ -123,9 +123,124 @@ Learning Machine Learning            </a>
 * IPython notebook
 *
 */
-/* CSS font colors for translated ANSI colors. */
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
 .ansibold {
   font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
 }
 /* use dark versions for foreground, to improve visibility */
 .ansiblack {
@@ -204,12 +319,20 @@ div.cell {
   /* This acts as a spacer between cells, that is outside the border */
   margin: 0px;
   outline: none;
-  border-left-width: 1px;
-  padding-left: 5px;
-  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
 }
 div.cell.jupyter-soft-selected {
-  border-left-color: #90CAF9;
   border-left-color: #E3F2FD;
   border-left-width: 1px;
   padding-left: 5px;
@@ -222,27 +345,39 @@ div.cell.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected {
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
   border-color: #ababab;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
 }
 @media print {
-  div.cell.selected {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected.jupyter-soft-selected {
-  border-left-width: 0;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
-}
 .edit_mode div.cell.selected {
   border-color: #66BB6A;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
 }
 @media print {
   .edit_mode div.cell.selected {
@@ -438,7 +573,9 @@ div.input_area > div.highlight > pre {
 .CodeMirror-lines {
   /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
   /* we have set a different line-height and want this to scale with that. */
-  padding: 0.4em;
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
 }
 .CodeMirror-linenumber {
   padding: 0 8px 0 4px;
@@ -448,11 +585,24 @@ div.input_area > div.highlight > pre {
   border-top-left-radius: 2px;
 }
 .CodeMirror pre {
-  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
-  /* .CodeMirror-lines */
-  padding: 0;
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
   border: 0;
   border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
 }
 /*
 
@@ -700,6 +850,9 @@ div.output_area img.unconfined,
 div.output_area svg.unconfined {
   max-width: none;
 }
+div.output_area .mglyph > img {
+  max-width: none;
+}
 /* This is needed to protect the pre formating from global settings such
    as that of bootstrap */
 .output {
@@ -738,7 +891,7 @@ div.output_area svg.unconfined {
 }
 div.output_area pre {
   margin: 0;
-  padding: 0;
+  padding: 1px 0 1px 0;
   border: 0;
   vertical-align: baseline;
   color: black;
@@ -860,6 +1013,10 @@ div.output_unrecognized a:hover {
 .rendered_html h6:first-child {
   margin-top: 1em;
 }
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
 
 
 
@@ -876,16 +1033,24 @@ div.output_unrecognized a:hover {
 }
 
 
+
+
+
 .rendered_html pre,
+
 
 
 
 .rendered_html tr,
 .rendered_html th,
 
-.rendered_html td,
 
-
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
 .rendered_html * + table {
   margin-top: 1em;
 }
@@ -901,6 +1066,11 @@ div.output_unrecognized a:hover {
 
 .rendered_html img.unconfined,
 
+
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] 
 div.text_cell {
   /* Old browsers */
   display: -webkit-box;
@@ -951,8 +1121,15 @@ h6:hover .anchor-link {
   display: none;
 }
 .text_cell.rendered 
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered 
 .text_cell.unrendered .text_cell_render {
   display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
 }
 .cm-header-1,
 .cm-header-2,
@@ -1090,18 +1267,14 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>TL;DR: RNN-training in Theano using Backpropagation through Time (BPTT) can be greatly accelerated by unrolling Theano's built-in loop construct. The speedups were frankly a bit surprising. Therefore I decided to write a short tutorial on this.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h3><p>RNNs have recently drawn much attention due to their successful application to many difficult tasks. There are many great blog posts out there, e.g. <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">this</a> one, which I found particularly helpful.</p>
 <p>I got interested in RNNs a while ago for a research project and found Theano a great tool to learn how to use them.</p>
@@ -1118,9 +1291,7 @@ It is mainly used to define differentiable multi-variate real-valued functions t
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#182;</a></h4><p>In what follows the following version of Theano is used</p>
 <div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">theano</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version</span>
@@ -1137,7 +1308,7 @@ It is mainly used to define differentiable multi-variate real-valued functions t
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">theano.sandbox.cuda</span>
@@ -1155,18 +1326,14 @@ It is mainly used to define differentiable multi-variate real-valued functions t
 <span class="n">matplotlib</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Using gpu device 0: Tesla C2070 (CNMeM is enabled with initial size: 95.0% of memory, cuDNN not available)
@@ -1178,29 +1345,23 @@ It is mainly used to define differentiable multi-variate real-valued functions t
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Recurrent-Neural-Networks">Recurrent Neural Networks<a class="anchor-link" href="#Recurrent-Neural-Networks">&#182;</a></h3><p>We would like to model sequences of objects some input space $\mathcal{X}$. Here, we think of $\mathcal{X}$ as a discrete set of size $M$, e.g. representing a vocabulary.
 RNNs can be thought of transforming a sequence $x = [x_1, \ldots, x_B], x_t \in \mathcal{X}$ to a sequence of real-valued vectors of dimension $D$, which we will refer to as hidden vectors:</p>
-<p>$$
+$$
 [x_1,\ldots,x_B] \mapsto [{\bf h}_1, \ldots, {\bf h}_B]
-$$</p>
-<p>The hidden vector ${\bf h}_t$ represents the state of the network after having seen $t$ elements of the sequence.</p>
+$$<p>The hidden vector ${\bf h}_t$ represents the state of the network after having seen $t$ elements of the sequence.</p>
 <p>Popular RNN architectures used today recursively define the computation of a hidden vector ${\bf h}_t$ in terms of the input at time $t$ as well as the previous hidden vector ${\bf h}_{t-1}$:</p>
-<p>$$
+$$
 {\bf h}_t = \mathrm{step}({\bf h}_{t-1}, x_t)
-$$</p>
-<p>State-of-the-art architectures such as LSTMs and GRUs are instances of this. 
+$$<p>State-of-the-art architectures such as LSTMs and GRUs are instances of this. 
 For the purposes of this tutorial however, we will rather focus on the perhaps simplest incarnation, where the recursion is defined as</p>
-<p>$$
+$$
 {\bf a}_t = {\bf W}_h {\bf h}_{t-1} + {\bf W}_i { \delta}_{x_t}
-$$</p>
-<p>$$
+$$$$
 {\bf h}_t = \sigma({\bf a}_t)
-$$</p>
-<p>${\bf W}_h$ and ${\bf W}_i$ are matrices that parameterize the RNN, and $\delta_{x_t}$ is the one-hot encoding of $x_t$.
+$$<p>${\bf W}_h$ and ${\bf W}_i$ are matrices that parameterize the RNN, and $\delta_{x_t}$ is the one-hot encoding of $x_t$.
 $\sigma$ is a point-wise non-linear function, e.g. <code>tanh</code>, logistic sigmoid, or the rectified linear function.
 The initial hidden vector ${\bf h}_0$ is given and could be all zeros, a constant vector or even treated as a parameter.</p>
 <p>Let's see some code for this.</p>
@@ -1210,7 +1371,7 @@ The initial hidden vector ${\bf h}_0$ is given and could be all zeros, a constan
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">stepTemplate</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">hprev</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span><span class="p">,</span> <span class="n">mvm</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
@@ -1224,14 +1385,12 @@ The initial hidden vector ${\bf h}_0$ is given and could be all zeros, a constan
 <span class="n">stepT</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span> <span class="p">:</span> <span class="n">stepTemplate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">tanh</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We will start with a more familiar numpy version.
 Therefore, the function <code>stepN()</code> takes the numpy versions for matrix-vector multiplication and the non-linear function, whereas <code>stepT()</code> takes the theano versions that expect symbolic variables.</p>
@@ -1239,9 +1398,7 @@ Therefore, the function <code>stepN()</code> takes the numpy versions for matrix
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="A-Generative-Model-For-Sequences">A Generative Model For Sequences<a class="anchor-link" href="#A-Generative-Model-For-Sequences">&#182;</a></h3><p>At this stage one may ask what to do with the hidden vectors. One of the strengths of RNNs and neural networks in general is their flexibility. The hidden vectors as a representation or summary of what the network has seen so far can be used in various ways by passing it through an appropriate output layer.
 A natural question is to ask after having seen the first $t$ elements of a sequence what a likely $t+1$-th element could be.
@@ -1249,15 +1406,12 @@ This question could be answered if we had a way to specify a distribution over $
 This would gives us a generative sequence model in the sense that we could sample sequences element by element updating the distribution as we go.
 Using the real-valued hidden vector representation, we can define such distributions by reducing it to a standard multi-class logistic regression problem: we can think of ${\bf h}_t$ as a feature vector that we would like to classify as one of the $M$ "classes" in $\mathcal{X}$.
 For this, we first multiply the "feature" vector by a weight vector per class, which we will conveniently arrange in a matrix of size $D \times M$:</p>
-<p>$$ z_t = {\bf h}_t^T{\bf W}_o $$</p>
-<p>Then we exponentiate the resulting vector elementwise and normalize, i.e. pass it through the <code>softmax</code> function to get a probability vector:</p>
-<p>$$P_t = \mathrm{softmax}(z_t)$$</p>
-<p>This gives us the tools to specify a likelihood of a set of training sequences that can then be optimized with respect to the model parameters. The parameters here are the matrices ${\bf W}_h, {\bf W}_i$ for the RNN and ${\bf W}_o$ for the output layer.
+$$ z_t = {\bf h}_t^T{\bf W}_o $$<p>Then we exponentiate the resulting vector elementwise and normalize, i.e. pass it through the <code>softmax</code> function to get a probability vector:</p>
+$$P_t = \mathrm{softmax}(z_t)$$<p>This gives us the tools to specify a likelihood of a set of training sequences that can then be optimized with respect to the model parameters. The parameters here are the matrices ${\bf W}_h, {\bf W}_i$ for the RNN and ${\bf W}_o$ for the output layer.
 We obtain the likelihood by taking the value that $P_t$ assigns to element $x_{t+1}$:</p>
-<p>$$
+$$
 l_t = \log P_t(x_{t+1})
-$$</p>
-<p>This can also be thought of as computing the negative <a href="https://en.wikipedia.org/wiki/Cross_entropy">cross entropy</a> between the Kronecker delta  $\delta_{x_{t+1}}(\cdot)$ and $P_t$.</p>
+$$<p>This can also be thought of as computing the negative <a href="https://en.wikipedia.org/wiki/Cross_entropy">cross entropy</a> between the Kronecker delta  $\delta_{x_{t+1}}(\cdot)$ and $P_t$.</p>
 <p>We sum up these quantities to obtain the log-likelihood of a sequence. 
 Maximizing the log-likelihood initutively gives us parameters that assigns high probability to the sequences in the training set. 
 In order to comply with more standard machine learning terminology, we will compute the negative log-likelihood and refer to it as the logistic loss (which we should then be minimized).</p>
@@ -1268,7 +1422,7 @@ In order to comply with more standard machine learning terminology, we will comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">rnnN</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">Wh</span><span class="p">,</span> <span class="n">Wi</span><span class="p">):</span>
@@ -1286,23 +1440,19 @@ In order to comply with more standard machine learning terminology, we will comp
     <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="n">l_t</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here, inputs <code>x</code> and <code>y</code> denote the overlapping sub-sequences $[x_1,\ldots, x_{B-1}]$ and $[x_2, \ldots, x_B]$, respectively.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Theano-Implementation">Theano Implementation<a class="anchor-link" href="#Theano-Implementation">&#182;</a></h3><p>We present the theano implementation top-down, starting with the definition of the loss function. It accepts hidden vectors and the sequence to predict. In addition to the loss, it returns also the symbolic gradients, which is just a matter of a call to <a href="http://deeplearning.net/software/theano/tutorial/gradients.html"><code>theano.grad</code></a>:</p>
 
@@ -1311,7 +1461,7 @@ In order to comply with more standard machine learning terminology, we will comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">logisticLossT</span><span class="p">(</span><span class="n">ty</span><span class="p">,</span> <span class="n">tH</span><span class="p">,</span> <span class="n">tParams</span><span class="p">):</span>
@@ -1323,14 +1473,12 @@ In order to comply with more standard machine learning terminology, we will comp
     <span class="k">return</span> <span class="n">tLoss</span><span class="p">,</span> <span class="n">tGrad</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As mentioned before, symbolic Theano expressions need to be compiled into concrete functions.
 This can be achieved by using <a href="http://deeplearning.net/software/theano/library/compile/function.html"><code>function</code></a>.
@@ -1345,7 +1493,7 @@ Here, we chose to define a function that computes the value of the loss for a se
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">getSharedGrad</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
@@ -1375,14 +1523,12 @@ Here, we chose to define a function that computes the value of the loss for a se
     <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">sH</span><span class="p">,</span> <span class="n">shGrad</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Unrolling-Loops-in-Theano">Unrolling Loops in Theano<a class="anchor-link" href="#Unrolling-Loops-in-Theano">&#182;</a></h3><p>Loops in Theano are typically realized using the <a href="http://deeplearning.net/software/theano/library/scan.html"><code>scan</code></a> operator. 
 My first attempt at implementing RNNs using scan resulted in somewhat slow code, which I tried to optimize.
@@ -1395,7 +1541,7 @@ The following code represents my current understanding which I wanted to share a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">rnnT_scan</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">th0</span><span class="p">,</span> <span class="n">tParams</span><span class="p">):</span>
@@ -1404,14 +1550,12 @@ The following code represents my current understanding which I wanted to share a
     <span class="k">return</span> <span class="n">tH</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The unrolled equivalent below is different in mainly two aspects: first, the length of the sequence has to be known, while the version above takes a symbolic sequence whose length can be unknown at compile time. Second, in every iteration we explicitely create new symbolic variables that Theano needs to process at compile time. This will have an impact on the compilation time as we will see later.</p>
 
@@ -1420,7 +1564,7 @@ The following code represents my current understanding which I wanted to share a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">rnnT_unroll</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">th0</span><span class="p">,</span> <span class="n">tParams</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
@@ -1432,14 +1576,12 @@ The following code represents my current understanding which I wanted to share a
     <span class="k">return</span> <span class="n">T</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">tH_tmp</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Running-Time-Comparison">Running-Time Comparison<a class="anchor-link" href="#Running-Time-Comparison">&#182;</a></h3><p>The code below compares the scan version to the unrolled version in terms of compile time and running time for small and large values of $M$ and different sequence lengths. $D$ is fixed and the parameter matrices are initialized randomly.</p>
 
@@ -1448,7 +1590,7 @@ The following code represents my current understanding which I wanted to share a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">20160825</span><span class="p">)</span>
@@ -1502,14 +1644,12 @@ The following code represents my current understanding which I wanted to share a
                     <span class="o">&lt;</span> <span class="mf">1e-6</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">params</span><span class="p">]))</span> 
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The following code generates the plots below.</p>
 
@@ -1518,7 +1658,7 @@ The following code represents my current understanding which I wanted to share a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">myplot</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">xlab</span><span class="p">,</span> <span class="n">ylab</span><span class="p">,</span> <span class="n">ylog</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
@@ -1541,14 +1681,12 @@ The following code represents my current understanding which I wanted to share a
 <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Time(sec)&#39;</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Results">Results<a class="anchor-link" href="#Results">&#182;</a></h3><h4 id="Running-Time">Running Time<a class="anchor-link" href="#Running-Time">&#182;</a></h4><p>The plots below compare the running time of the two RNN implementations for three different sequence lengths.
 For a relatively small value of $M$ both implementations are relatively close.
@@ -1561,24 +1699,20 @@ I am still trying to figure out, why this is the case.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">myplot</span><span class="p">(</span><span class="n">rts_ur</span><span class="p">,</span> <span class="n">rts_sc</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">xlab</span><span class="p">,</span> <span class="n">ylab</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 
 <div class="output_svg output_subarea ">
@@ -3489,9 +3623,7 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Compile-Time">Compile Time<a class="anchor-link" href="#Compile-Time">&#182;</a></h4><p>The downside of unrolling is the increase in compile time illustrtated below, which is actually quite dramatic (note the log scale of the y-axis).
 As expected, the scaling does not depend on the input size, i.e. $M$, but rather on the length of the sequence for the unrolled implementation, in contrast to the scan version which is agnostic to the sequence length at compile time.
@@ -3502,24 +3634,20 @@ This can certainly be a nuisance while prototyping, but a minor price to pay in 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">myplot</span><span class="p">(</span><span class="n">cts_ur</span><span class="p">,</span> <span class="n">cts_sc</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">xlab</span><span class="p">,</span> <span class="n">ylab</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 
 <div class="output_svg output_subarea ">
@@ -5498,9 +5626,7 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3><p>I find the scaling behaviour a bit suspicious and do not rule out a mistake in the configuration. I was, however, able to reproduce it on another machine where I could install newer software and drivers.
 For me, avoiding the use of scan was a viable solution to get the job done, but it would be great to better understand the cause of this discrepancy. I hope this tutorial is useful for someone getting started with RNNs in Theano and would appreciate any pointers to better understand this issue.</p>

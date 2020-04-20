@@ -117,9 +117,124 @@ Learning Machine Learning            </a>
 * IPython notebook
 *
 */
-/* CSS font colors for translated ANSI colors. */
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
 .ansibold {
   font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
 }
 /* use dark versions for foreground, to improve visibility */
 .ansiblack {
@@ -198,12 +313,20 @@ div.cell {
   /* This acts as a spacer between cells, that is outside the border */
   margin: 0px;
   outline: none;
-  border-left-width: 1px;
-  padding-left: 5px;
-  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
 }
 div.cell.jupyter-soft-selected {
-  border-left-color: #90CAF9;
   border-left-color: #E3F2FD;
   border-left-width: 1px;
   padding-left: 5px;
@@ -216,27 +339,39 @@ div.cell.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected {
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
   border-color: #ababab;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
 }
 @media print {
-  div.cell.selected {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected.jupyter-soft-selected {
-  border-left-width: 0;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
-}
 .edit_mode div.cell.selected {
   border-color: #66BB6A;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
 }
 @media print {
   .edit_mode div.cell.selected {
@@ -432,7 +567,9 @@ div.input_area > div.highlight > pre {
 .CodeMirror-lines {
   /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
   /* we have set a different line-height and want this to scale with that. */
-  padding: 0.4em;
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
 }
 .CodeMirror-linenumber {
   padding: 0 8px 0 4px;
@@ -442,11 +579,24 @@ div.input_area > div.highlight > pre {
   border-top-left-radius: 2px;
 }
 .CodeMirror pre {
-  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
-  /* .CodeMirror-lines */
-  padding: 0;
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
   border: 0;
   border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
 }
 /*
 
@@ -694,6 +844,9 @@ div.output_area img.unconfined,
 div.output_area svg.unconfined {
   max-width: none;
 }
+div.output_area .mglyph > img {
+  max-width: none;
+}
 /* This is needed to protect the pre formating from global settings such
    as that of bootstrap */
 .output {
@@ -732,7 +885,7 @@ div.output_area svg.unconfined {
 }
 div.output_area pre {
   margin: 0;
-  padding: 0;
+  padding: 1px 0 1px 0;
   border: 0;
   vertical-align: baseline;
   color: black;
@@ -854,6 +1007,10 @@ div.output_unrecognized a:hover {
 .rendered_html h6:first-child {
   margin-top: 1em;
 }
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
 
 
 
@@ -870,16 +1027,24 @@ div.output_unrecognized a:hover {
 }
 
 
+
+
+
 .rendered_html pre,
+
 
 
 
 .rendered_html tr,
 .rendered_html th,
 
-.rendered_html td,
 
-
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
 .rendered_html * + table {
   margin-top: 1em;
 }
@@ -895,6 +1060,11 @@ div.output_unrecognized a:hover {
 
 .rendered_html img.unconfined,
 
+
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] 
 div.text_cell {
   /* Old browsers */
   display: -webkit-box;
@@ -945,8 +1115,15 @@ h6:hover .anchor-link {
   display: none;
 }
 .text_cell.rendered 
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered 
 .text_cell.unrendered .text_cell_render {
   display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
 }
 .cm-header-1,
 .cm-header-2,
@@ -1084,9 +1261,7 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style><body>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So far, I have been using Theano for my neural-network related projects, and I really like using it.
 One drawback I found was that compilation to the target backend can take a lot of time, especially in some <a href="http://yjk21.github.io/blog/unrolling.html">cases</a>.
@@ -1099,7 +1274,7 @@ This post contains some notes on making the transition from Theano to Tensorflow
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">theano</span>
@@ -1114,14 +1289,12 @@ This post contains some notes on making the transition from Theano to Tensorflow
 <span class="n">matplotlib</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#182;</a></h3><p>Let's start with a simple linear regression problem based on the following generative model:</p>
 <p>A weight vector ${\bf w}$ is drawn from 
@@ -1129,20 +1302,17 @@ $$
 P({\bf w}) = N(0, \sigma^2_p {\bf I}_D)\\
 $$</p>
 <p>Then, given ${\bf w}$ and feature vector ${\bf x}$ an observation $y$ is drawn from the likelihood:</p>
-<p>$$
+$$
 P(y \mid {\bf w}, {\bf x}) = N({\bf x}^T {\bf w}, \sigma^2_n)
-$$</p>
-<p>The hyper-parameters are assumed to be known.</p>
+$$<p>The hyper-parameters are assumed to be known.</p>
 <p>With access to a data set consisting of a feature matrix ${\bf X} \in \mathbb{R}^{N \times D}$ and observations ${\bf y} \in \mathbb{R}^N$, we would like to infer the mean of the posterior distribution $P({\bf w} \mid {\bf y}, {\bf X})$ as an estimator for ${\bf w}$.</p>
 <p>Using <a href="https://en.wikipedia.org/wiki/Conjugate_prior">self-conjugacy</a> and the coincidence of mean and mode of Gaussians we can cast posterior-mean inference into an optimization problem:</p>
-<p>$$
-{\bf\hat w} = \mathbb{E}[{\bf w} \mid {\bf y},{\bf X}] = \mathrm{arg}\min_{\bf w} E({\bf w})
 $$
-where the cost function is defined as</p>
-<p>$$
+{\bf\hat w} = \mathbb{E}[{\bf w} \mid {\bf y},{\bf X}] = \mathrm{arg}\min_{\bf w} E({\bf w})
+$$<p>where the cost function is defined as</p>
+$$
 E({\bf w}) :=  \Vert {\bf y} - {\bf X w} \Vert^2 + \frac{\sigma^2_n}{\sigma^2_p} \Vert {\bf w} \Vert^2
-$$</p>
-<p>which is of course just the Tikhonov-regularized least-squares objective.
+$$<p>which is of course just the Tikhonov-regularized least-squares objective.
 Strong convexity and the well-known analytical solution for its minimizer makes it a nice test problem for our purposes.</p>
 <p>The code below draws a dataset from the model.
 The numpy arrays here are converted to single precision <code>dtype</code>, to be compatible with my Theano configuration, which is geared towards using GPUs.</p>
@@ -1152,7 +1322,7 @@ The numpy arrays here are converted to single precision <code>dtype</code>, to b
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
@@ -1188,18 +1358,14 @@ The numpy arrays here are converted to single precision <code>dtype</code>, to b
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>w: [[ 0.13682203]] what: [[ 0.13519447]] error: 0.00162755613255
@@ -1208,9 +1374,6 @@ The numpy arrays here are converted to single precision <code>dtype</code>, to b
 </div>
 
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 
 <div class="output_svg output_subarea ">
@@ -2861,9 +3024,7 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Placeholders-and-Variables">Placeholders and Variables<a class="anchor-link" href="#Placeholders-and-Variables">&#182;</a></h3><p>In Tensorflow, we express computations in terms symbolic quantities. There are two types, <code>place_holder</code> and <code>Variable</code> which, as far as I understand, roughly correspond to Theano's tensors and shared variables, respectively.</p>
 <p>We will prefix Theano identifiers with <code>t</code> Tensorflow identifiers with <code>f</code>.</p>
@@ -2874,7 +3035,7 @@ z
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">w0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">D</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -2893,14 +3054,12 @@ z
 <span class="n">fnE_th</span> <span class="o">=</span> <span class="n">theano</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">tX</span><span class="p">,</span><span class="n">ty</span><span class="p">,</span><span class="n">ts2_p</span><span class="p">,</span><span class="n">ts2_n</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">tE</span><span class="p">,</span> <span class="n">tgE</span><span class="p">])</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The TF code looks quite similar, but has some subtle differences in the API. <code>tf.matmul</code> is very strict about dimensions and does not accept a matrix and a vector while Theano's <code>dot</code> is more flexible and behaves very closely to its numpy namesake.</p>
 <p>Furthermore, placeholders can be annotated with their shape which can be valuable for catching bugs early on.</p>
@@ -2910,7 +3069,7 @@ z
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">fX</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">D</span><span class="p">])</span>
@@ -2922,14 +3081,12 @@ z
 <span class="n">fgE</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gradients</span><span class="p">(</span><span class="n">fE</span><span class="p">,</span> <span class="n">fw</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Another difference is the concept of a session that does not exist in Theano and reflects the more flexible runtime system underlying TF. 
 I suppose that this additional abstraction caters to the possibility to deploy TF expressions in different environments ranging from distributed systems to mobile devices.</p>
@@ -2940,20 +3097,18 @@ I suppose that this additional abstraction caters to the possibility to deploy T
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span> <span class="n">device_count</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;GPU&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span> <span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To evaluate expressions we can use the run method of a session.</p>
 <p>Variables need to be initialized by running the corresponding operation. This is necessary, because instead of specifying variables in terms of concrete data, as we did here, we could also specify it symbolically, e.g. by passing an operation that represents a random draw from some distribution. Running the variable's initializer would then perform the actual random number generation and associate the result to the variable.</p>
@@ -2964,7 +3119,7 @@ I suppose that this additional abstraction caters to the possibility to deploy T
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">fv</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[]))</span>
@@ -2977,18 +3132,14 @@ I suppose that this additional abstraction caters to the possibility to deploy T
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 
 <div class="output_svg output_subarea ">
@@ -3774,9 +3925,7 @@ Q 18.3125 60.0625 18.3125 54.390625
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Before proceeding, let us quickly initialize our regression weights.</p>
 
@@ -3785,21 +3934,19 @@ Q 18.3125 60.0625 18.3125 54.390625
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fw</span><span class="o">.</span><span class="n">initializer</span><span class="p">)</span>
 <span class="k">assert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fw</span><span class="p">)</span> <span class="o">==</span> <span class="n">w0</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Placeholders on the other hand are fed to the session using the <code>feed_dict</code> parameter of <code>Session.run()</code></p>
 
@@ -3808,20 +3955,18 @@ Q 18.3125 60.0625 18.3125 54.390625
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">E0_tf</span><span class="p">,</span> <span class="n">gE0_tf</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">fE</span><span class="p">,</span> <span class="n">fgE</span><span class="p">],</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">fX</span><span class="p">:</span><span class="n">X</span><span class="p">,</span> <span class="n">fy</span><span class="p">:</span><span class="n">y</span><span class="p">,</span> <span class="n">fl</span><span class="p">:</span><span class="n">l</span><span class="p">})</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Next, we make sure that the values we compute correspond to the ones computed by the Theano implementation.</p>
 
@@ -3830,21 +3975,19 @@ Q 18.3125 60.0625 18.3125 54.390625
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">E0_th</span><span class="p">,</span> <span class="n">gE0_th</span> <span class="o">=</span> <span class="n">fnE_th</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">s2_p</span><span class="p">,</span> <span class="n">s2_n</span><span class="p">)</span>
 <span class="k">assert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">E0_th</span><span class="p">,</span> <span class="n">E0_tf</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">gE0_th</span><span class="p">,</span> <span class="n">gE0_tf</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Optimization">Optimization<a class="anchor-link" href="#Optimization">&#182;</a></h3><p>We now have everything in place to solve the optimization problem.
 Here, we use gradient descent. The learning rule is implemented as show in the code below, which shows how assigments are expressed symbolically.</p>
@@ -3854,7 +3997,7 @@ Here, we use gradient descent. The learning rule is implemented as show in the c
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#learning rate</span>
@@ -3863,14 +4006,12 @@ Here, we use gradient descent. The learning rule is implemented as show in the c
 <span class="n">fupdw</span> <span class="o">=</span> <span class="n">fw</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fw</span> <span class="o">-</span> <span class="n">feta</span> <span class="o">*</span> <span class="n">fgE</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can run the update for a few iterations and print some additional information to monitor the progress.</p>
 
@@ -3879,7 +4020,7 @@ Here, we use gradient descent. The learning rule is implemented as show in the c
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fw</span><span class="o">.</span><span class="n">initializer</span><span class="p">)</span>
@@ -3889,18 +4030,14 @@ Here, we use gradient descent. The learning rule is implemented as show in the c
     <span class="k">print</span> <span class="s2">&quot;Loss E(w):&quot;</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">g-norm:&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">what:&quot;</span><span class="p">,</span> <span class="n">ww</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">error:&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">ww</span><span class="o">-</span><span class="n">what</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Loss E(w): 0.0215857 	g-norm: 0.246392 	what: 0.123196 	error: 0.0119986095555
@@ -3921,9 +4058,7 @@ Loss E(w): 0.00493029 	g-norm: 8.00355e-09 	what: 0.135194 	error: 8.29768834198
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Tensorflow already ships with a bunch of popular (and more sophisticated) optimization algorithms, which can be found in the <code>train</code> module. They can be used as shown below:</p>
 
@@ -3932,7 +4067,7 @@ Loss E(w): 0.00493029 	g-norm: 8.00355e-09 	what: 0.135194 	error: 8.29768834198
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#define a single step</span>
@@ -3947,18 +4082,14 @@ Loss E(w): 0.00493029 	g-norm: 8.00355e-09 	what: 0.135194 	error: 8.29768834198
 <span class="k">print</span> <span class="n">norm</span><span class="p">(</span><span class="n">what</span> <span class="o">-</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fw</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>8.29768834198e-09
@@ -3970,9 +4101,7 @@ Loss E(w): 0.00493029 	g-norm: 8.00355e-09 	what: 0.135194 	error: 8.29768834198
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3><p>Tensorflow looks great. I liked that it is quite close to Theano. 
 I am currently exploring the API, which is quite huge since it comes with a lot of built-in functionality, e.g. monitoring, visualizing computation graphs and support for RNNs. 
