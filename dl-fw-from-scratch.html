@@ -1,0 +1,2836 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>A Deep Learning Framework from Scratch - Learning Machine Learning</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/dl-fw-from-scratch.html">
+
+        <meta name="author" content="yjk21" />
+        <meta name="keywords" content="Programming,Python,Deep Neural Networks,Backpropagation" />
+        <meta name="description" content="Writing a simple deep learning framework from scratch" />
+
+        <meta property="og:site_name" content="Learning Machine Learning" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="A Deep Learning Framework from Scratch"/>
+        <meta property="og:url" content="/dl-fw-from-scratch.html"/>
+        <meta property="og:description" content="Writing a simple deep learning framework from scratch"/>
+        <meta property="article:published_time" content="2020-04-04" />
+            <meta property="article:section" content="Programming, Deep Learning" />
+            <meta property="article:tag" content="Programming" />
+            <meta property="article:tag" content="Python" />
+            <meta property="article:tag" content="Deep Neural Networks" />
+            <meta property="article:tag" content="Backpropagation" />
+            <meta property="article:author" content="yjk21" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/friendly.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Learning Machine Learning            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="/projects.html">Projects</a></li>
+                    <li><a href="https://github.com/yjk21/blog/raw/master/content/files/cv.pdf">CV</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/dl-fw-from-scratch.html"
+                       rel="bookmark"
+                       title="Permalink to A Deep Learning Framework from Scratch">
+                        A Deep Learning Framework from Scratch
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2020-04-04T00:00:00+02:00"> Sa 04 April 2020</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/programming.html">Programming</a>
+        /
+	<a href="/tag/python.html">Python</a>
+        /
+	<a href="/tag/deep-neural-networks.html">Deep Neural Networks</a>
+        /
+	<a href="/tag/backpropagation.html">Backpropagation</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
+.ansibold {
+  font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
+  border-color: #ababab;
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
+}
+@media print {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
+  border: 0;
+  border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+div.output_area .mglyph > img {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 1px 0 1px 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+
+
+
+.rendered_html pre,
+
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] 
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I recently watched some of Andrej Karpathy's CS231n video lectures, in particular the one on <a href="https://www.youtube.com/watch?v=i94OvYb6noo">back-propagation</a>. 
+I fully agree with his appeal to peek behind the curtains of deep learning frameworks to gain at least a basic understanding of how they work.</p>
+<p>In the past, I had manually written back-propagation for fixed models, such as MLPs and RNNs.
+And I have gathered end-user experience with several frameworks, such as <a href="tensorflow.org">Tensorflow</a>, <a href="mxnet.apache.org">MXNet</a> and <a href="pytorch.org">Pytorch</a>.</p>
+<p>So it seemed like a fun little project to spend some of the additional free weekends at home 
+to actually write a toy deep learning framework to revise the mechanics of back-propagation.
+As a by-product, I wanted to share my notes and code,
+hoping they might be useful for the odd student or practitioner, interested in revising some fundamentals as well.</p>
+<p>Therefore, the goal of this post is to work through the general back-propagation algorithm 
+and get it to run on a few networks.</p>
+<p>The prototype has the following characteristics:</p>
+<ul>
+<li>support for back-propagation in feed-forward networks, implicitly represented as directed acyclic compute graphs<ul>
+<li>the nodes in the DAG represent tensors and the edges input-output relations between them</li>
+<li>we focus on the common case of the DAG producing a scalar value, the loss (more on this topic, and generally a great read <a href="https://colah.github.io/posts/2015-08-Backprop/">here</a>)</li>
+</ul>
+</li>
+<li>eager mode, using a tape to record the DAG while evaluating it</li>
+<li>implementation of a minimal set of example operations</li>
+<li>visualization of the underlying DAG </li>
+<li>expressing some example networks and verifying them against a reference implementation</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The outline of this post is as follows:</p>
+<ul>
+<li>Preliminaries<ul>
+<li>Notation</li>
+<li>The Chain Rule</li>
+<li>Towards an Algorithm</li>
+</ul>
+</li>
+<li>Design and Implementation<ul>
+<li>Tensors</li>
+<li>The Tape</li>
+<li>Operations</li>
+</ul>
+</li>
+<li>Examples<ul>
+<li>Softmax Regression</li>
+<li>Multi-layer Perceptron</li>
+<li>RNN</li>
+</ul>
+</li>
+<li>Conclusion</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#182;</a></h2><p>Feed-forward neural networks are computational recipes to evaluate an underlying parameterized function (here, we focus on real-valued functions, i.e. functions producing a single real value), that are useful to think about in terms of directed acyclic graphs (DAG).</p>
+<p>The DAG representation reflects the natural order of the steps to take when following the recipe: any step can only be taken once all of its prerequisite steps are complete, and their results are available.</p>
+<p>Efficiently taking the gradient of such functions wrt. its parameters has been of great interest, even more so with the success of the supervised learning paradigm.</p>
+<p>Since for modern networks these recipes can be ludicrously long, we would like an algorithm for the gradient that is not (much) more computationally expensive than evaluating the function itself.</p>
+<p>Fortunately, such an algorithm is known now for decades, achieving this goal, roughly speaking, by performing very localized operations (nodes and their neighborhoods), i.e. applying the chain rule recursively along the same graph, just in "reverse" order.
+I am of course talking about the back-propagation algorithm.</p>
+<p>A convenient by-product of the locality of computations, both forward and backward, is that we can easily extend our selection of basic building blocks and freely compose graphs and rely on back-propagation to give us gradients.</p>
+<p>The example graph below illustrates a DAG</p>
+<ul>
+<li>The nodes in the graph represent tensors produced along the way.</li>
+<li>Green edges denote input-output relation ships in the forward direction, e.g. $Z = f(X,Y)$.</li>
+<li>Once the output of the network, node $L$ is reached, the gradient computation in backward direction can begin</li>
+<li>Red arrows represent the gradient flow, where in each step a node receives its gradient and locally applies the chain rule to passes on the gradient contribution along this path to its inputs</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea output_execute_result">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: %3 Pages: 1 -->
+<svg width="494pt" height="116pt"
+ viewBox="0.00 0.00 494.00 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-112 490,-112 490,4 -4,4"/>
+<!-- X -->
+<g id="node1" class="node">
+<title>X</title>
+<ellipse fill="none" stroke="#000000" cx="27" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">X</text>
+</g>
+<!-- S -->
+<g id="node3" class="node">
+<title>S</title>
+<ellipse fill="none" stroke="#000000" cx="171" cy="-54" rx="27" ry="18"/>
+<text text-anchor="middle" x="171" y="-50.3" font-family="Times,serif" font-size="14.00" fill="#000000">S</text>
+</g>
+<!-- X&#45;&gt;S -->
+<g id="edge1" class="edge">
+<title>X&#45;&gt;S</title>
+<path fill="none" stroke="#00aa00" d="M54.0336,-88.7211C78.3102,-84.4508 113.9468,-75.6988 139.5029,-67.8251"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="140.6435,-71.135 149.0971,-64.7486 138.5059,-64.4693 140.6435,-71.135"/>
+</g>
+<!-- Y -->
+<g id="node2" class="node">
+<title>Y</title>
+<ellipse fill="none" stroke="#000000" cx="27" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">Y</text>
+</g>
+<!-- Y&#45;&gt;S -->
+<g id="edge2" class="edge">
+<title>Y&#45;&gt;S</title>
+<path fill="none" stroke="#00aa00" d="M48.8956,-28.7461C71.494,-36.325 107.1356,-45.5085 134.0951,-50.8651"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="133.4826,-54.3112 143.9572,-52.7194 134.7761,-47.4318 133.4826,-54.3112"/>
+</g>
+<!-- S&#45;&gt;X -->
+<g id="edge5" class="edge">
+<title>S&#45;&gt;X</title>
+<path fill="none" stroke="#aa0000" d="M143.9664,-55.2789C119.6898,-59.5492 84.0532,-68.3012 58.4971,-76.1749"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="57.3566,-72.865 48.9029,-79.2514 59.4941,-79.5307 57.3566,-72.865"/>
+</g>
+<!-- S&#45;&gt;Y -->
+<g id="edge8" class="edge">
+<title>S&#45;&gt;Y</title>
+<path fill="none" stroke="#aa0000" d="M149.1044,-43.2539C126.506,-35.675 90.8644,-26.4915 63.9049,-21.1349"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="64.5174,-17.6888 54.0429,-19.2806 63.2239,-24.5682 64.5174,-17.6888"/>
+</g>
+<!-- ... -->
+<g id="node4" class="node">
+<title>...</title>
+<ellipse fill="none" stroke="#000000" cx="315" cy="-54" rx="27" ry="18"/>
+<text text-anchor="middle" x="315" y="-50.3" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
+</g>
+<!-- S&#45;&gt;... -->
+<g id="edge3" class="edge">
+<title>S&#45;&gt;...</title>
+<path fill="none" stroke="#00aa00" d="M197.0773,-59.3401C220.0147,-60.9964 253.624,-61.1934 279.0993,-59.9309"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="279.3459,-63.4225 289.1167,-59.326 278.9239,-56.4352 279.3459,-63.4225"/>
+</g>
+<!-- ...&#45;&gt;S -->
+<g id="edge7" class="edge">
+<title>...&#45;&gt;S</title>
+<path fill="none" stroke="#aa0000" d="M288.9227,-48.6599C265.9853,-47.0036 232.376,-46.8066 206.9007,-48.0691"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="206.6541,-44.5775 196.8833,-48.674 207.0761,-51.5648 206.6541,-44.5775"/>
+</g>
+<!-- L -->
+<g id="node5" class="node">
+<title>L</title>
+<ellipse fill="none" stroke="#000000" cx="459" cy="-54" rx="27" ry="18"/>
+<text text-anchor="middle" x="459" y="-50.3" font-family="Times,serif" font-size="14.00" fill="#000000">L</text>
+</g>
+<!-- ...&#45;&gt;L -->
+<g id="edge4" class="edge">
+<title>...&#45;&gt;L</title>
+<path fill="none" stroke="#00aa00" d="M341.0773,-59.3401C364.0147,-60.9964 397.624,-61.1934 423.0993,-59.9309"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="423.3459,-63.4225 433.1167,-59.326 422.9239,-56.4352 423.3459,-63.4225"/>
+</g>
+<!-- L&#45;&gt;... -->
+<g id="edge6" class="edge">
+<title>L&#45;&gt;...</title>
+<path fill="none" stroke="#aa0000" d="M432.9227,-48.6599C409.9853,-47.0036 376.376,-46.8066 350.9007,-48.0691"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="350.6541,-44.5775 340.8833,-48.674 351.0761,-51.5648 350.6541,-44.5775"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Some-notation">Some notation<a class="anchor-link" href="#Some-notation">&#182;</a></h3><ul>
+<li>$L$: The value of the loss function, evaluated at the current parameters</li>
+<li>Tensors upper-case $X, Y, Z$, (column) vectors lower-case $x,y,z$. Vectors can refer to vectorized tensors denoted by the corresponding upper-case letter.</li>
+<li>$\nabla f(x)$: Gradient of $f$ at $x$. To denote the gradient with respect of a subset of parameters, we subscript nabla. We will typically drop the argument, since we are always interested in the result of evaluating it at the current point. We treat it as a column vector as well.</li>
+<li>$J_f (x)$: Jacobian matrix of vector-valued $f$ wrt. its argument(s) $x$.</li>
+</ul>
+<h3 id="The-chain-rule">The chain rule<a class="anchor-link" href="#The-chain-rule">&#182;</a></h3><p>In the univariate case we have $f \circ g: \mathbb{R} \mapsto \mathbb{R} \mapsto \mathbb{R}$. And we have $f'(x) = f'(g(x)) g'(x)$</p>
+<p>In the case where $g$ is vector-valued (and $f$ is multi-variate), i.e. 
+$f \circ g:\mathbb{R} \mapsto \mathbb{R}^n \mapsto \mathbb{R}$, we have 
+$$\nabla_x f= \sum_{i=1}^{n} \frac{df}{dg_i} \frac{dg_i}{dx} =  J_g(x)^T\cdot\nabla_g f$$
+Using the Jacobian above, this immediately generalizes to the case of $x$ being a vector, i.e. $g$ being multi-variate as well. We abused notation a little, by using $g = g(x)$.</p>
+<p>This notation makes also very obvious the recursive nature of the problem, which back-propagation leverages to arrive at an efficient algorithm at the expense of memoizing intermediate results.</p>
+<p>We will typically deal with gradients wrt. tensors: $\frac{df}{dX}$ (layed-out in the same way as $X$). To work this out, we map this case to the vector chain rule by vectorizing $X \rightarrow x$, computing $\frac{df}{dx}$ and reshaping back.</p>
+<p>To avoid changing between tensors and vectors, using <a href="https://en.wikipedia.org/wiki/Einstein_notation">Einstein notation</a> can be very powerful and convenient,
+which would allow to always stick with tensors and specify the indices to sum over. 
+But for our purposes the Jacobi-Gradient product notation above will be sufficient.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Towards-an-algorithm">Towards an algorithm<a class="anchor-link" href="#Towards-an-algorithm">&#182;</a></h3><p>Consider the subgraph given by the neighborhood of a node $S$ in a computational graph illustrated below. 
+We need to understand when node $S$ can be processed and what we need to do to process it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea output_execute_result">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: %3 Pages: 1 -->
+<svg width="638pt" height="217pt"
+ viewBox="0.00 0.00 638.00 216.80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 212.8)">
+<title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-212.8 634,-212.8 634,4 -4,4"/>
+<!-- X1 -->
+<g id="node1" class="node">
+<title>X1</title>
+<ellipse fill="none" stroke="#000000" cx="27" cy="-176.4" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-172.7" font-family="Times,serif" font-size="14.00" fill="#000000">X₁</text>
+</g>
+<!-- S -->
+<g id="node4" class="node">
+<title>S</title>
+<ellipse fill="none" stroke="#000000" cx="171" cy="-104.4" rx="27" ry="18"/>
+<text text-anchor="middle" x="171" y="-100.7" font-family="Times,serif" font-size="14.00" fill="#000000">S</text>
+</g>
+<!-- X1&#45;&gt;S -->
+<g id="edge1" class="edge">
+<title>X1&#45;&gt;S</title>
+<path fill="none" stroke="#00aa00" d="M48.8705,-165.4648C73.2222,-153.2889 112.762,-133.519 140.2285,-119.7858"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="142.0165,-122.8049 149.3955,-115.2023 138.886,-116.5439 142.0165,-122.8049"/>
+</g>
+<!-- Xn -->
+<g id="node2" class="node">
+<title>Xn</title>
+<ellipse fill="none" stroke="#000000" cx="27" cy="-32.4" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-28.7" font-family="Times,serif" font-size="14.00" fill="#000000">Xₘ</text>
+</g>
+<!-- Xn&#45;&gt;S -->
+<g id="edge2" class="edge">
+<title>Xn&#45;&gt;S</title>
+<path fill="none" stroke="#00aa00" d="M48.8705,-43.3353C73.2222,-55.5111 112.762,-75.281 140.2285,-89.0142"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="138.886,-92.2561 149.3955,-93.5978 142.0165,-85.9951 138.886,-92.2561"/>
+</g>
+<!-- Xi -->
+<g id="node3" class="node">
+<title>Xi</title>
+<ellipse fill="none" stroke="#000000" cx="27" cy="-104.4" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-100.7" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
+</g>
+<!-- Xi&#45;&gt;S -->
+<g id="edge3" class="edge">
+<title>Xi&#45;&gt;S</title>
+<path fill="none" stroke="#00aa00" d="M54.0853,-104.4C76.4695,-104.4 108.4971,-104.4 133.3725,-104.4"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="133.5466,-107.9001 143.5466,-104.4 133.5465,-100.9001 133.5466,-107.9001"/>
+</g>
+<!-- T1 -->
+<g id="node5" class="node">
+<title>T1</title>
+<ellipse fill="none" stroke="#000000" cx="315" cy="-190.8" rx="27" ry="18"/>
+<text text-anchor="middle" x="315" y="-187.1" font-family="Times,serif" font-size="14.00" fill="#000000">T₁</text>
+</g>
+<!-- S&#45;&gt;T1 -->
+<g id="edge5" class="edge">
+<title>S&#45;&gt;T1</title>
+<path fill="none" stroke="#00aa00" d="M191.3263,-116.5958C216.0906,-131.4544 258.0927,-156.6556 286.1846,-173.5108"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="284.4014,-176.5225 294.7771,-178.6663 288.0029,-170.5201 284.4014,-176.5225"/>
+</g>
+<!-- Tn -->
+<g id="node6" class="node">
+<title>Tn</title>
+<ellipse fill="none" stroke="#000000" cx="315" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="315" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">Tₙ</text>
+</g>
+<!-- S&#45;&gt;Tn -->
+<g id="edge6" class="edge">
+<title>S&#45;&gt;Tn</title>
+<path fill="none" stroke="#00aa00" d="M191.3263,-92.2042C216.0906,-77.3456 258.0927,-52.1444 286.1846,-35.2892"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="288.0029,-38.28 294.7771,-30.1337 284.4014,-32.2775 288.0029,-38.28"/>
+</g>
+<!-- Ti -->
+<g id="node7" class="node">
+<title>Ti</title>
+<ellipse fill="none" stroke="#000000" cx="315" cy="-104.4" rx="27" ry="18"/>
+<text text-anchor="middle" x="315" y="-100.7" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
+</g>
+<!-- S&#45;&gt;Ti -->
+<g id="edge4" class="edge">
+<title>S&#45;&gt;Ti</title>
+<path fill="none" stroke="#00aa00" d="M198.0853,-104.4C220.4695,-104.4 252.4971,-104.4 277.3725,-104.4"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="277.5466,-107.9001 287.5466,-104.4 277.5465,-100.9001 277.5466,-107.9001"/>
+</g>
+<!-- ... -->
+<g id="node8" class="node">
+<title>...</title>
+<ellipse fill="none" stroke="#000000" cx="459" cy="-104.4" rx="27" ry="18"/>
+<text text-anchor="middle" x="459" y="-100.7" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
+</g>
+<!-- T1&#45;&gt;... -->
+<g id="edge8" class="edge">
+<title>T1&#45;&gt;...</title>
+<path fill="none" stroke="#00aa00" d="M335.3263,-178.6042C360.0906,-163.7456 402.0927,-138.5444 430.1846,-121.6892"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="432.0029,-124.68 438.7771,-116.5337 428.4014,-118.6775 432.0029,-124.68"/>
+</g>
+<!-- Tn&#45;&gt;... -->
+<g id="edge9" class="edge">
+<title>Tn&#45;&gt;...</title>
+<path fill="none" stroke="#00aa00" d="M335.3263,-30.1958C360.0906,-45.0544 402.0927,-70.2556 430.1846,-87.1108"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="428.4014,-90.1225 438.7771,-92.2663 432.0029,-84.12 428.4014,-90.1225"/>
+</g>
+<!-- Ti&#45;&gt;... -->
+<g id="edge7" class="edge">
+<title>Ti&#45;&gt;...</title>
+<path fill="none" stroke="#00aa00" d="M342.0853,-104.4C364.4695,-104.4 396.4971,-104.4 421.3725,-104.4"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="421.5466,-107.9001 431.5466,-104.4 421.5465,-100.9001 421.5466,-107.9001"/>
+</g>
+<!-- L -->
+<g id="node9" class="node">
+<title>L</title>
+<ellipse fill="none" stroke="#000000" cx="603" cy="-104.4" rx="27" ry="18"/>
+<text text-anchor="middle" x="603" y="-100.7" font-family="Times,serif" font-size="14.00" fill="#000000">L</text>
+</g>
+<!-- ...&#45;&gt;L -->
+<g id="edge10" class="edge">
+<title>...&#45;&gt;L</title>
+<path fill="none" stroke="#00aa00" d="M486.0853,-104.4C508.4695,-104.4 540.4971,-104.4 565.3725,-104.4"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="565.5466,-107.9001 575.5466,-104.4 565.5465,-100.9001 565.5466,-107.9001"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Looking at the chain rule above, in order to propagate the gradient through $S$, we need two components:</p>
+<ul>
+<li>$\nabla_S L$ which is determined by the graph to the right of $S$</li>
+<li>$J_S (X_i)$ which depends on the function $S = S(X_1, \ldots, X_m)$</li>
+</ul>
+<p>So we can only start working on $\nabla_{X_i} L$, once $\nabla_S L$ is available.</p>
+<p>According to the chain rule,
+$\nabla_S L = \sum_{i=1}^{n} J_{t_i} (s)^T \nabla_{t_i}$. 
+This means, that we need to make sure all successors of $S$ in forward direction (i.e. nodes connected by green arrows, $T_i$) were processed and added their contribution to $\nabla_S L$.</p>
+<p>We can express this idea in the following piece of pseudo-code:
+In the following piece of pseudo-code, that sketches this idea, the upper-case single-letter variables represent tensor objects, that have a member <code>dL</code>, which holds their gradient. So <code>S.dL</code> corresponds to $\nabla_S L$.</p>
+<div class="highlight"><pre><span></span><span class="n">L</span><span class="o">.</span><span class="n">dL</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="n">reverse_topological_order</span><span class="p">(</span><span class="n">dag</span><span class="o">.</span><span class="n">nodes</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">S</span> <span class="ow">in</span> <span class="n">T</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+        <span class="n">S</span><span class="o">.</span><span class="n">dL</span> <span class="o">+=</span> <span class="n">apply_chain_rule</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+</pre></div>
+<p>The key here is the processing the nodes in reverse topological order. 
+In topological order, $S$ is placed before all $T_i$. 
+Hence, processing in reverse makes sure that all $T_i$ were already processed when reaching $S$,
+and $\nabla_S$ is available to continue with $\nabla_{X_i} L$. Exactly what we wanted.</p>
+<p>Typically, we naturally build the graph in topological order as we describe the network step by step, even more so  since we aim our framework to run in eager-mode, where we are actually forced to do so, since we're actually running the computations as we go.</p>
+<p>A major part of the effort to implement this is hidden behind <code>apply_chain_rule</code>, as we need to provide efficient routines for forward and backward computations. 
+We will see some examples of this below.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Design-and-Implementation">Design and Implementation<a class="anchor-link" href="#Design-and-Implementation">&#182;</a></h2><h3 id="Tensors">Tensors<a class="anchor-link" href="#Tensors">&#182;</a></h3><p>Tensors are the main objects of our design. They represent nodes in our graph and keep track of their input nodes.</p>
+<p>Importantly, each tensor maintains its gradient of the loss wrt. itself (<code>dL</code>) and knows how to perform the local application of the chain rule (<code>fn_bwd</code>, which captures all the data it needs in its closure).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Tensor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">needs_grad</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="c1">#string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">=</span> <span class="n">verbosity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span> <span class="c1">#np.array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span> <span class="c1">#List[Tensor]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">needs_grad</span> <span class="o">=</span> <span class="n">needs_grad</span> <span class="c1">#Bool</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn_bwd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">None</span> <span class="c1">#funtion that applies the chain rule</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dL</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#holds the gradient of this tensor</span>
+        <span class="k">if</span> <span class="n">needs_grad</span><span class="p">:</span> <span class="c1">#if needed, allocate with same size as data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">apply_chain_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.bwd&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn_bwd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dL</span><span class="p">)</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tape">Tape<a class="anchor-link" href="#Tape">&#182;</a></h3><p>As we saw previously, the order in which new tensors are created determines the order in which the backward pass can be computed: the reverse of a topological order of the DAG.</p>
+<p>While the tensor maintains its input nodes, we do not have forward edges to be able to arbitrarily traverse the graph in both directoins. 
+But a full graph representation, e.g. with adjacency lists, is anyway not required for our purposes, since all we care about is the a topologically sorted list of nodes.</p>
+<p>We therefore use the concept of a <a href="https://en.wikipedia.org/wiki/Automatic_differentiation">tape</a>, which seems to be widely used in eager execution frameworks, to record tensors in the order of their creation, which corresponds to a topological sorting.</p>
+<p>The implementation is basically a wrapper around a list, and includes a couple of auxiliary methods to trigger the backward computation as well as visualizing the graph.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Tape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tensors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tensors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tensors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_reversed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensors</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reversed</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+                <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">g</span>
+    
+    <span class="k">def</span> <span class="nf">bwd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reversed</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">needs_grad</span><span class="p">:</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">apply_chain_rule</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Operations">Operations<a class="anchor-link" href="#Operations">&#182;</a></h3><p>This section contains many details that,can be glossed over, though I find deriving forward and backward computations from scratch to be a good exercise.</p>
+<p>The final ingredient, which is also the most work-intensive piece is the definition of the operations that generate new tensors from existing ones and tie together the graph, as well as define the concrete backward computations.</p>
+<p>We define operations on tensors simply as a pair of functions <code>op_fwd</code> and <code>op_bwd</code>.
+The <code>op_fwd</code> function sets the <code>fn_bwd</code> function of a tensor as a lambda, that captures all the required intermediate results <code>op_fwd</code> produces.
+Further, <code>op_fwd</code> also has the responsibility to add the tensor it produces to the tape.</p>
+<h4 id="Linear-Layers">Linear Layers<a class="anchor-link" href="#Linear-Layers">&#182;</a></h4><p>Let us first consider a linear layer:  $Y = XW$</p>
+<p>$X$ is of size $B \times h_1$ and $W$ is of size $h_1 \times h_2$, i.e. $Y$ will be $B \times h_2$.</p>
+<p>Assume now in the backward pass, $Y$ has received its gradient $\nabla_Y L$. $Y$ needs to know how to perform <code>fn_bwd</code> which implements the multiplication with the Jacobian and in turn updates the gradients of its inputs $W$ and $X$ (unless $X$ is a terminal node, i.e. an input rather than an activation).</p>
+<p>To compute <code>linear_fwd</code> from tensors $X$ and $W$, we do the following:</p>
+<ol>
+<li>do the computation<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</li>
+<li>create a tensor representation of the data, specifying name, data, inputs, and whether it needs a gradient<div class="highlight"><pre><span></span><span class="n">tZ</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_out&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">needs_grad</span> <span class="ow">or</span> <span class="n">W</span><span class="o">.</span><span class="n">needs_grad</span><span class="p">)</span>
+</pre></div>
+</li>
+<li>specify its <code>fn_bwd</code><div class="highlight"><pre><span></span><span class="n">tZ</span><span class="o">.</span><span class="n">fn_bwd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">grad</span><span class="p">:</span> <span class="n">linear_bwd</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+</pre></div>
+</li>
+<li>add the new tensor to the tape    <div class="highlight"><pre><span></span><span class="n">tape</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tZ</span><span class="p">)</span>
+</pre></div>
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To compute <code>linear_bwd</code>, let us derive the Gradient-Jacobian product for $X$ and $W$. 
+Normally, it would be much more convenient to rely on matrix calculus formulae (personally, I like to use <a href="https://tminka.github.io/papers/matrix/minka-matrix.pdf">this reference</a>).</p>
+<p>We start with the case $B=1$, i.e. $Y$ and $X$ are row-vectors of length $h_2$ and $h_1$ respectively. Remember, that $\nabla_Y L$ will be a row-vector of the size of vectorized $Y$.</p>
+<p>Therefore, for both $J_Y(X)$ and $J_Y(W)$, the matrix will have $h_2$ rows, one for each element of $Y$.</p>
+<p>For $J_Y(X)$, we need $\frac{dY_i}{dX}$, the rows of $J_Y(X)$ of length $h_1$. Since $Y_i = XW_{:,i}$, the product of $X$ with the $i$-th column of $W$, the $i$-th row of $J_Y(X)$ is the $i$-th column of $W$. Hence, $J_Y(X) = W^T$, and $\nabla_X L= W\cdot \nabla_Y L $.</p>
+<p>If we wanted to strictly follow the recipe of Gradient times Jacobian for $B&gt;1$, we would end up with $ (\mathbb{I}_B \otimes W) \cdot \nabla_y L$, using the Kronecker product to repeat $W$ $B$-times along the diagonal of a block identity matrix. However, since we want to reshape this back to the size of $X$ anyway, this simply collapses to a to a normal matrix product if we reshape $\nabla_Y L$ to be of size $B\times h_2$.</p>
+<p>For $J_Y(W)$, we need $\frac{dY_i}{d W}$, where we flattened $W$ in column-major order. By the definition of $Y_i$ above, we know that $\frac{d Y_i}{d W_{:,j}}$ is a 0-vector if $j\neq i$ and $X$ if $j=i$.</p>
+<p>We can therefore write $J_Y(X) = \mathbb{I}_{h_2} \otimes X$. Looking at the multiplication with $\nabla_Y L$ and reshaping it back to the shape of $W$, we notice that we're essentially computing an outer product between these vectors: $\frac{dL}{dW} = X^T \cdot \nabla_Y L$.</p>
+<p>Again, for $B&gt;1$, since we maintain $\nabla_Y L$ as a $B\times h_2$, we end up with a matrix product: $\frac{dL}{dW} = X^T \nabla_Y L$.</p>
+<p>This can be easily implemented using <code>matmul</code>. Note, that we need to accumulate the gradient instead of assigning it, as described before.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">lin_bwd</span><span class="p">(</span><span class="n">dldZ</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">needs_grad</span><span class="p">:</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">dL</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">dldZ</span><span class="p">,</span> <span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">W</span><span class="o">.</span><span class="n">needs_grad</span><span class="p">:</span>
+        <span class="n">W</span><span class="o">.</span><span class="n">dL</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dldZ</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">lin_fwd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">):</span> <span class="c1"># (n,k), (k,m) -&gt; (n,m)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">tZ</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_out&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">needs_grad</span> <span class="ow">or</span> <span class="n">W</span><span class="o">.</span><span class="n">needs_grad</span><span class="p">)</span>
+    <span class="n">tZ</span><span class="o">.</span><span class="n">fn_bwd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">grad</span><span class="p">:</span> <span class="n">lin_bwd</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+    <span class="n">tape</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tZ</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tZ</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Linear layers are often used together with a learnable bias term, making them affine.</p>
+$$Y = X\cdot W + b$$<p>,
+where $b$ is broadcast along the rows of $X \cdot W$ (outer product with a all-ones vector).</p>
+<p>We will not implement this, but it would be straight-forward to extend the linear layer. The backward computation for $b$ would be just a sum of the rows of the incoming gradient:</p>
+$$\nabla_b L = (\nabla_b Y)' \mathbb{1}$$<p>Convolutional layers are special cases of affine layers, that have much fewer parameters and connections. 
+Their spatial structure is particularly well suited for representing visual data, and have become the back-bone of modern network architectures in this field, not least because of the availability of fast implementations.</p>
+<h4 id="Activation--functions:-Making-the-network-non-linear">Activation  functions: Making the network non-linear<a class="anchor-link" href="#Activation--functions:-Making-the-network-non-linear">&#182;</a></h4><p>Feed-forward networks are often seqences of blocks consisting of an affine layer, followed by a point-wise non-linearity. 
+Relu, sigmoid and tanh are common ones. Since they are applied elementwise, the normal uni-variate chain rule applies:</p>
+<ul>
+<li>Sigmoid: $f(x) = \sigma(x) = \frac{1}{1+ e^{-x}} = \frac{e^x}{1+e^{x}}$, and $f'(x) = \sigma(x)(1-\sigma(x))$</li>
+<li>Tanh: $f(x) = 2\sigma(2x) - 1$ and $f'(x) = 4 \sigma(2x) (1-\sigma(2x))$</li>
+<li>Relu: $f(x) = \max(0, x)$ and $f'(x) = \max(0, sgn(x))$</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1"># small cheat! :)</span>
+    <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="k">import</span> <span class="n">expit</span>
+    <span class="k">return</span> <span class="n">expit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tanh_bwd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">sig2</span><span class="p">):</span>
+    <span class="n">X</span><span class="o">.</span><span class="n">dL</span> <span class="o">+=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">sig2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">sig2</span><span class="p">)</span> <span class="o">*</span> <span class="n">grad</span>
+
+<span class="k">def</span> <span class="nf">tanh_fwd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="n">sig2</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">tanh_</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sig2</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">tZ</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_out&#39;</span><span class="p">,</span> <span class="n">tanh_</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">needs_grad</span><span class="p">)</span>
+    <span class="n">tZ</span><span class="o">.</span><span class="n">fn_bwd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">grad</span><span class="p">:</span> <span class="n">tanh_bwd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">sig2</span><span class="p">)</span>
+    <span class="n">tape</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tZ</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tZ</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Loss-functions:-Softmax-and-cross-entropy-loss">Loss functions: Softmax and cross entropy loss<a class="anchor-link" href="#Loss-functions:-Softmax-and-cross-entropy-loss">&#182;</a></h4><p>For classification, the cross entropy loss comes out as picking the probability of the training label $y_i$. 
+For training, we minimize the negative log-probability. Given a logit vector $s$, as output of the network in response to the input corresponding to $y_i$, the cross entropy loss as function of the logits is
+$$L_{y_i}(s) = -\log p_{y_i} =  \log \sum_{j} \exp(s_j) - x_{y_i}$$
+and its gradient with respect to the logits is
+$$\nabla_s L = \frac{1}{\sum_j \exp(s_j)} \exp{s} -\mathbb{I}_{y_i}  = p - \mathbb{I}_{y_i}$$</p>
+<p>For a mini-batch, we therefore need to compute P and subtract 1 at the corresponding locations of the label, i.e.  subtract the label matrix when it is one-hot encoded.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">softmax_xent_bwd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">X</span><span class="o">.</span><span class="n">dL</span> <span class="o">+=</span> <span class="p">(</span><span class="n">P</span> <span class="o">-</span> <span class="n">Y</span><span class="p">)</span> <span class="o">/</span> <span class="n">B</span>
+
+<span class="k">def</span> <span class="nf">softmax_xent_fwd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">mx</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">mx</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">e</span> <span class="o">/</span> <span class="n">s</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">tZ</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_out&#39;</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">needs_grad</span><span class="p">)</span>
+    <span class="n">tZ</span><span class="o">.</span><span class="n">fn_bwd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">grad</span><span class="p">:</span> <span class="n">softmax_xent_bwd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">tape</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tZ</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tZ</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Normalization,-Regularization,-and-all-that-Jazz">Normalization, Regularization, and all that Jazz<a class="anchor-link" href="#Normalization,-Regularization,-and-all-that-Jazz">&#182;</a></h4><p>In practice, one might need a bunch of additional layers, such as normalization layers (batchnorm, groupnorm, instancenorm, layernorm, ...), layers for regularization (dropout, dropconnect, ...), pooling (max, average,...), and other auxiliary layers (reshape, concat, ...). 
+The list is growing over time. Therefore the ML systems community seems to be looking for alternatives to manually writing and optimizing every new operation that gains traction.
+An exciting approach would be to have systems that become more reminiscent of compilers with domain specific optimization passes that can help turning a higher-level description of the network automatically (or less manually) into fast machine code, generating the backward code along the way.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Examples">Examples<a class="anchor-link" href="#Examples">&#182;</a></h2><p>We implement a couple of simple networks, both using <a href="tensorflow.org">Tensorflow</a>, as well as our toy framework and compare the gradients we compute.</p>
+<p>In particular we look at three models:</p>
+<ul>
+<li>a simple linear model (softmax regression)</li>
+<li>a multi-layer perceptron (MLP) with a single hidden layer</li>
+<li>a basic RNN, unrolled for a few timesteps</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Softmax-Regression">Softmax Regression<a class="anchor-link" href="#Softmax-Regression">&#182;</a></h3><p>Here, we model the logits of a softmax classifier as a linear combination of the input features.</p>
+<p>Even though in practice we would not need it, we also compute the gradient wrt. the input $X$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">onehot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">D</span><span class="p">))</span>
+    <span class="n">Y</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">Y</span>
+
+<span class="n">sess</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">B</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">H0</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234567890</span><span class="p">)</span>
+<span class="n">bx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">H0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">by</span> <span class="o">=</span> <span class="n">onehot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">),</span> <span class="n">C</span><span class="p">)</span>
+<span class="n">Wnp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="n">H0</span>
+
+<span class="c1"># Weights </span>
+<span class="n">tfW</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">Wnp</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="c1"># Input features</span>
+<span class="n">tfX</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">bx</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="c1"># Labels</span>
+<span class="n">tfY</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">by</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+<span class="c1"># Model</span>
+<span class="n">tfZ</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tfX</span><span class="p">,</span> <span class="n">tfW</span><span class="p">)</span>
+<span class="n">tfLoss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax_cross_entropy_with_logits_v2</span><span class="p">(</span><span class="n">tfY</span><span class="p">,</span> <span class="n">tfZ</span><span class="p">))</span>
+
+<span class="c1"># Request gradients</span>
+<span class="n">tfG</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gradients</span><span class="p">(</span><span class="n">tfLoss</span><span class="p">,</span> <span class="p">[</span><span class="n">tfW</span><span class="p">,</span> <span class="n">tfX</span><span class="p">,</span> <span class="n">tfZ</span><span class="p">])</span>
+
+<span class="n">lm_loss</span><span class="p">,</span> <span class="n">lm_grad</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">tfLoss</span><span class="p">,</span> <span class="n">tfG</span> <span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We set up the same network, visualize the graph, and run the backward pass.</p>
+<p>Additionally, we check the largest difference to the outputs compared to the Tensorflow output.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tape</span> <span class="o">=</span> <span class="n">Tape</span><span class="p">()</span>
+<span class="n">tX</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">tW</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">Wnp</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">tZ</span> <span class="o">=</span> <span class="n">lin_fwd</span><span class="p">(</span><span class="s1">&#39;lin0&#39;</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">tX</span><span class="p">,</span> <span class="n">tW</span><span class="p">)</span>
+<span class="n">tLoss</span> <span class="o">=</span> <span class="n">softmax_xent_fwd</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">tZ</span><span class="p">,</span> <span class="n">by</span><span class="p">)</span>
+<span class="n">tape</span><span class="o">.</span><span class="n">bwd</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff L: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tLoss</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">lm_loss</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff W: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tW</span><span class="o">.</span><span class="n">dL</span> <span class="o">-</span> <span class="n">lm_grad</span><span class="p">[</span><span class="mi">0</span><span class="p">]))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff X: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tX</span><span class="o">.</span><span class="n">dL</span> <span class="o">-</span> <span class="n">lm_grad</span><span class="p">[</span><span class="mi">1</span><span class="p">]))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff Z: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tZ</span><span class="o">.</span><span class="n">dL</span> <span class="o">-</span> <span class="n">lm_grad</span><span class="p">[</span><span class="mi">2</span><span class="p">]))))</span>
+<span class="n">tape</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>softmax_out
+lin0_out
+Maxdiff L: 7.95e-08
+Maxdiff W: 1.49e-08
+Maxdiff X: 1.40e-09
+Maxdiff Z: 7.45e-09
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea output_execute_result">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: %3 Pages: 1 -->
+<svg width="152pt" height="188pt"
+ viewBox="0.00 0.00 152.04 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-184 148.0444,-184 148.0444,4 -4,4"/>
+<!-- lin0_out -->
+<g id="node1" class="node">
+<title>lin0_out</title>
+<ellipse fill="none" stroke="#000000" cx="68.5975" cy="-90" rx="40.0939" ry="18"/>
+<text text-anchor="middle" x="68.5975" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">lin0_out</text>
+</g>
+<!-- softmax_out -->
+<g id="node2" class="node">
+<title>softmax_out</title>
+<ellipse fill="none" stroke="#000000" cx="68.5975" cy="-18" rx="55.4913" ry="18"/>
+<text text-anchor="middle" x="68.5975" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">softmax_out</text>
+</g>
+<!-- lin0_out&#45;&gt;softmax_out -->
+<g id="edge1" class="edge">
+<title>lin0_out&#45;&gt;softmax_out</title>
+<path fill="none" stroke="#000000" d="M68.5975,-71.8314C68.5975,-64.131 68.5975,-54.9743 68.5975,-46.4166"/>
+<polygon fill="#000000" stroke="#000000" points="72.0976,-46.4132 68.5975,-36.4133 65.0976,-46.4133 72.0976,-46.4132"/>
+</g>
+<!-- input -->
+<g id="node3" class="node">
+<title>input</title>
+<ellipse fill="none" stroke="#000000" cx="28.5975" cy="-162" rx="28.6953" ry="18"/>
+<text text-anchor="middle" x="28.5975" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">input</text>
+</g>
+<!-- input&#45;&gt;lin0_out -->
+<g id="edge2" class="edge">
+<title>input&#45;&gt;lin0_out</title>
+<path fill="none" stroke="#000000" d="M38.0769,-144.937C42.7552,-136.5161 48.5071,-126.1627 53.7516,-116.7226"/>
+<polygon fill="#000000" stroke="#000000" points="56.9714,-118.1338 58.7683,-107.6924 50.8523,-114.7342 56.9714,-118.1338"/>
+</g>
+<!-- weight -->
+<g id="node4" class="node">
+<title>weight</title>
+<ellipse fill="none" stroke="#000000" cx="109.5975" cy="-162" rx="34.394" ry="18"/>
+<text text-anchor="middle" x="109.5975" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">weight</text>
+</g>
+<!-- weight&#45;&gt;lin0_out -->
+<g id="edge3" class="edge">
+<title>weight&#45;&gt;lin0_out</title>
+<path fill="none" stroke="#000000" d="M99.6725,-144.5708C94.8734,-136.1431 89.0095,-125.8455 83.6738,-116.4755"/>
+<polygon fill="#000000" stroke="#000000" points="86.563,-114.4761 78.5731,-107.5182 80.4801,-117.9401 86.563,-114.4761"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="MLP">MLP<a class="anchor-link" href="#MLP">&#182;</a></h4><p>Next, we try out the MLP, to test the tanh non-linearity.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#one-hidden-layer MLP</span>
+<span class="n">W1np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">bx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="n">bx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">tfW1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">W1np</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+<span class="c1"># hidden layer</span>
+<span class="n">tfZ1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tfX</span><span class="p">,</span> <span class="n">tfW1</span><span class="p">)</span>
+<span class="n">tfA1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">tfZ1</span><span class="p">)</span>
+
+<span class="c1"># output layer </span>
+<span class="n">tfZ</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tfA1</span><span class="p">,</span> <span class="n">tfW</span><span class="p">)</span>
+<span class="n">tfLoss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax_cross_entropy_with_logits_v2</span><span class="p">(</span><span class="n">tfY</span><span class="p">,</span> <span class="n">tfZ</span><span class="p">))</span>
+
+<span class="n">tfG</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gradients</span><span class="p">(</span><span class="n">tfLoss</span><span class="p">,</span> <span class="p">[</span><span class="n">tfW1</span><span class="p">,</span> <span class="n">tfX</span><span class="p">,</span> <span class="n">tfA1</span><span class="p">,</span> <span class="n">tfZ1</span><span class="p">,</span> <span class="n">tfW</span><span class="p">,</span> <span class="n">tfZ</span><span class="p">])</span>
+
+<span class="n">mlp_loss</span><span class="p">,</span> <span class="n">mlp_grad</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">tfLoss</span><span class="p">,</span> <span class="n">tfG</span> <span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tape</span> <span class="o">=</span> <span class="n">Tape</span><span class="p">()</span>
+<span class="n">tX</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">tW0</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;W0&#39;</span><span class="p">,</span> <span class="n">W1np</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">tZ0</span> <span class="o">=</span> <span class="n">lin_fwd</span><span class="p">(</span><span class="s1">&#39;lin0&#39;</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">tX</span><span class="p">,</span> <span class="n">tW0</span><span class="p">)</span>
+<span class="n">tA0</span> <span class="o">=</span> <span class="n">tanh_fwd</span><span class="p">(</span><span class="s1">&#39;tanh&#39;</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">tZ0</span><span class="p">)</span>
+
+<span class="n">tW1</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;W1&#39;</span><span class="p">,</span> <span class="n">Wnp</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">tZ1</span> <span class="o">=</span> <span class="n">lin_fwd</span><span class="p">(</span><span class="s1">&#39;lin1&#39;</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">tA0</span><span class="p">,</span> <span class="n">tW1</span><span class="p">)</span>
+<span class="n">tLoss</span> <span class="o">=</span> <span class="n">softmax_xent_fwd</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">tZ1</span><span class="p">,</span> <span class="n">by</span><span class="p">)</span>
+<span class="n">tape</span><span class="o">.</span><span class="n">bwd</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff L: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mlp_loss</span> <span class="o">-</span> <span class="n">tLoss</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff X: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mlp_grad</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tX</span><span class="o">.</span><span class="n">dL</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff W0: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mlp_grad</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">tW0</span><span class="o">.</span><span class="n">dL</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff A0: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mlp_grad</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">tA0</span><span class="o">.</span><span class="n">dL</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff Z0: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mlp_grad</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">tZ0</span><span class="o">.</span><span class="n">dL</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff W1: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mlp_grad</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">tW1</span><span class="o">.</span><span class="n">dL</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff Z1: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mlp_grad</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">tZ1</span><span class="o">.</span><span class="n">dL</span><span class="p">))))</span>
+
+<span class="n">tape</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>softmax_out
+lin1_out
+tanh_out
+lin0_out
+Maxdiff L: 0.00e+00
+Maxdiff X: 4.66e-10
+Maxdiff W0: 2.33e-09
+Maxdiff A0: 1.40e-09
+Maxdiff Z0: 1.40e-09
+Maxdiff W1: 3.26e-08
+Maxdiff Z1: 7.45e-09
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea output_execute_result">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: %3 Pages: 1 -->
+<svg width="188pt" height="332pt"
+ viewBox="0.00 0.00 187.60 332.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-328 183.5975,-328 183.5975,4 -4,4"/>
+<!-- lin1_out -->
+<g id="node1" class="node">
+<title>lin1_out</title>
+<ellipse fill="none" stroke="#000000" cx="108.5975" cy="-90" rx="40.0939" ry="18"/>
+<text text-anchor="middle" x="108.5975" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">lin1_out</text>
+</g>
+<!-- softmax_out -->
+<g id="node2" class="node">
+<title>softmax_out</title>
+<ellipse fill="none" stroke="#000000" cx="108.5975" cy="-18" rx="55.4913" ry="18"/>
+<text text-anchor="middle" x="108.5975" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">softmax_out</text>
+</g>
+<!-- lin1_out&#45;&gt;softmax_out -->
+<g id="edge1" class="edge">
+<title>lin1_out&#45;&gt;softmax_out</title>
+<path fill="none" stroke="#000000" d="M108.5975,-71.8314C108.5975,-64.131 108.5975,-54.9743 108.5975,-46.4166"/>
+<polygon fill="#000000" stroke="#000000" points="112.0976,-46.4132 108.5975,-36.4133 105.0976,-46.4133 112.0976,-46.4132"/>
+</g>
+<!-- tanh_out -->
+<g id="node3" class="node">
+<title>tanh_out</title>
+<ellipse fill="none" stroke="#000000" cx="65.5975" cy="-162" rx="41.6928" ry="18"/>
+<text text-anchor="middle" x="65.5975" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">tanh_out</text>
+</g>
+<!-- tanh_out&#45;&gt;lin1_out -->
+<g id="edge2" class="edge">
+<title>tanh_out&#45;&gt;lin1_out</title>
+<path fill="none" stroke="#000000" d="M76.0066,-144.5708C81.0922,-136.0553 87.318,-125.6308 92.9604,-116.183"/>
+<polygon fill="#000000" stroke="#000000" points="96.0126,-117.8983 98.1352,-107.5182 90.0028,-114.3091 96.0126,-117.8983"/>
+</g>
+<!-- W1 -->
+<g id="node4" class="node">
+<title>W1</title>
+<ellipse fill="none" stroke="#000000" cx="152.5975" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="152.5975" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">W1</text>
+</g>
+<!-- W1&#45;&gt;lin1_out -->
+<g id="edge3" class="edge">
+<title>W1&#45;&gt;lin1_out</title>
+<path fill="none" stroke="#000000" d="M142.3924,-145.3008C137.1056,-136.6496 130.5286,-125.8873 124.5855,-116.1623"/>
+<polygon fill="#000000" stroke="#000000" points="127.5621,-114.3209 119.3611,-107.6132 121.5891,-117.9711 127.5621,-114.3209"/>
+</g>
+<!-- lin0_out -->
+<g id="node5" class="node">
+<title>lin0_out</title>
+<ellipse fill="none" stroke="#000000" cx="65.5975" cy="-234" rx="40.0939" ry="18"/>
+<text text-anchor="middle" x="65.5975" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">lin0_out</text>
+</g>
+<!-- lin0_out&#45;&gt;tanh_out -->
+<g id="edge4" class="edge">
+<title>lin0_out&#45;&gt;tanh_out</title>
+<path fill="none" stroke="#000000" d="M65.5975,-215.8314C65.5975,-208.131 65.5975,-198.9743 65.5975,-190.4166"/>
+<polygon fill="#000000" stroke="#000000" points="69.0976,-190.4132 65.5975,-180.4133 62.0976,-190.4133 69.0976,-190.4132"/>
+</g>
+<!-- input -->
+<g id="node6" class="node">
+<title>input</title>
+<ellipse fill="none" stroke="#000000" cx="28.5975" cy="-306" rx="28.6953" ry="18"/>
+<text text-anchor="middle" x="28.5975" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">input</text>
+</g>
+<!-- input&#45;&gt;lin0_out -->
+<g id="edge5" class="edge">
+<title>input&#45;&gt;lin0_out</title>
+<path fill="none" stroke="#000000" d="M37.5541,-288.5708C41.853,-280.2055 47.0985,-269.998 51.8849,-260.6839"/>
+<polygon fill="#000000" stroke="#000000" points="55.0085,-262.263 56.4662,-251.7689 48.7825,-259.0634 55.0085,-262.263"/>
+</g>
+<!-- W0 -->
+<g id="node7" class="node">
+<title>W0</title>
+<ellipse fill="none" stroke="#000000" cx="102.5975" cy="-306" rx="27" ry="18"/>
+<text text-anchor="middle" x="102.5975" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">W0</text>
+</g>
+<!-- W0&#45;&gt;lin0_out -->
+<g id="edge6" class="edge">
+<title>W0&#45;&gt;lin0_out</title>
+<path fill="none" stroke="#000000" d="M93.829,-288.937C89.5016,-280.5161 84.1811,-270.1627 79.3299,-260.7226"/>
+<polygon fill="#000000" stroke="#000000" points="82.3732,-258.987 74.6894,-251.6924 76.1471,-262.1865 82.3732,-258.987"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Recurrent-Neural-Network">Recurrent Neural Network<a class="anchor-link" href="#Recurrent-Neural-Network">&#182;</a></h3><p>Lastly, we implement a RNN. We just treat the batch dimension of our test data as time steps</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#RNN</span>
+
+<span class="c1"># hidden dimension</span>
+<span class="n">H1</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="c1"># parameters: we stack the matrices transforming the input and the previous hidden state</span>
+<span class="n">Wrnn_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">H1</span> <span class="o">+</span> <span class="n">bx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">H1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="n">bx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Wout_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">H1</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="n">bx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">tfWrnn</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">Wrnn_np</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="n">tfWout</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">Wout_np</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+<span class="c1"># initial hidden vector </span>
+<span class="n">h_0</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">H1</span><span class="p">))</span>
+
+<span class="c1"># keep track of hidden states and logits</span>
+<span class="n">hidden</span> <span class="o">=</span> <span class="p">[</span><span class="n">h_0</span><span class="p">]</span>
+<span class="n">logits</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># unroll in time</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="n">x_t</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">bx</span><span class="p">[</span><span class="n">t</span><span class="p">:</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">h_tm1</span> <span class="o">=</span> <span class="n">hidden</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x_t</span><span class="p">,</span> <span class="n">h_tm1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">a_t</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">tfWrnn</span><span class="p">)</span>
+    <span class="n">h_t</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a_t</span><span class="p">)</span>
+    <span class="n">hidden</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h_t</span><span class="p">)</span>
+    <span class="n">out_t</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">h_t</span><span class="p">,</span><span class="n">tfWout</span><span class="p">)</span>
+    <span class="n">logits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out_t</span><span class="p">)</span>
+
+<span class="n">tfLoss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax_cross_entropy_with_logits_v2</span><span class="p">(</span><span class="n">tfY</span><span class="p">,</span> <span class="n">logits</span><span class="p">))</span>
+    
+<span class="n">tfG</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gradients</span><span class="p">(</span><span class="n">tfLoss</span><span class="p">,</span> <span class="p">[</span><span class="n">tfWrnn</span><span class="p">,</span> <span class="n">tfWout</span><span class="p">]</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+<span class="n">rnn_loss</span><span class="p">,</span> <span class="n">rnn_grad</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">tfLoss</span><span class="p">,</span> <span class="n">tfG</span> <span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Missing-Operator:-Concat">Missing Operator: Concat<a class="anchor-link" href="#Missing-Operator:-Concat">&#182;</a></h4><p>Note, that we used <code>tf.concat</code> here to concatenate $x_t$ and $h_{t-1}$ to do multiply with the stacked parameter matrix $W_{RNN}$. 
+We could avoid this by keeping the matrices separate, but we would need to introduce an <code>add</code> operation.</p>
+<p>Another issue is that Tensorflow's cross entropy apparently can deal with a list of logit vectors.
+However, our cross entropy code expects an <code>np.array</code>.</p>
+<p>So we could either extend our cross entropy, or add concatenation.</p>
+<p>Since concatenation helps with both cases, we go for that.</p>
+<p>How does the backward computation of concatenation look like? It's really just an auxiliary operation that does not compute, but just copies the tensors in a list into a contiguous piece of memory.
+Therefore, we just need to keep track of how we did that and route the parts of the contiguous gradient to the corresponding inputs.</p>
+<p>We can use <code>np.take</code> to index an array at runtime.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">concat_bwd</span><span class="p">(</span><span class="n">dL</span><span class="p">,</span> <span class="n">Xlist</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">dL</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">==</span> <span class="nb">sum</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="k">for</span> <span class="n">X</span> <span class="ow">in</span> <span class="n">Xlist</span><span class="p">]))</span>
+    <span class="n">from_</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">it</span><span class="p">,</span> <span class="n">X</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Xlist</span><span class="p">):</span>
+        <span class="n">to_</span> <span class="o">=</span> <span class="n">from_</span> <span class="o">+</span> <span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">needs_grad</span><span class="p">:</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">dL</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">dL</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">from_</span><span class="p">,</span><span class="n">to_</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span> 
+        <span class="n">from_</span> <span class="o">=</span> <span class="n">to_</span>
+        
+<span class="k">def</span> <span class="nf">concat_fwd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">Xlist</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">Xlist</span><span class="p">],</span> <span class="n">axis</span><span class="p">)</span>
+    <span class="n">tZ</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_out&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">Xlist</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">needs_grad</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">Xlist</span><span class="p">]))</span>
+    <span class="n">tZ</span><span class="o">.</span><span class="n">fn_bwd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">grad</span><span class="p">:</span> <span class="n">concat_bwd</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">Xlist</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+    <span class="n">tape</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tZ</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tZ</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With this, we can finally proceed with defining our RNN.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tape</span> <span class="o">=</span> <span class="n">Tape</span><span class="p">()</span>
+<span class="n">tWrnn</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;Wrnn&#39;</span><span class="p">,</span> <span class="n">Wrnn_np</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">tWout</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;Wout&#39;</span><span class="p">,</span> <span class="n">Wout_np</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">th0</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;h0&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">H1</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="p">[],</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">hidden</span> <span class="o">=</span> <span class="p">[</span><span class="n">th0</span><span class="p">]</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">B</span><span class="p">):</span>
+    <span class="n">tx</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="s1">&#39;x_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">bx</span><span class="p">[</span><span class="n">t</span><span class="p">:</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">ht_m1</span> <span class="o">=</span> <span class="n">hidden</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">concat_fwd</span><span class="p">(</span><span class="s1">&#39;concat_x_h_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">tape</span><span class="p">,</span> <span class="p">[</span><span class="n">tx</span><span class="p">,</span> <span class="n">ht_m1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">a_t</span> <span class="o">=</span> <span class="n">lin_fwd</span><span class="p">(</span><span class="s1">&#39;act_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="n">tape</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">tWrnn</span><span class="p">)</span>
+    <span class="n">h_t</span> <span class="o">=</span> <span class="n">tanh_fwd</span><span class="p">(</span><span class="s1">&#39;h_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">tape</span><span class="p">,</span> <span class="n">a_t</span><span class="p">)</span>
+    <span class="n">hidden</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h_t</span><span class="p">)</span>
+    
+    <span class="n">y_t</span> <span class="o">=</span> <span class="n">lin_fwd</span><span class="p">(</span><span class="s1">&#39;y_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">tape</span><span class="p">,</span> <span class="n">h_t</span><span class="p">,</span> <span class="n">tWout</span><span class="p">)</span>
+    <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_t</span><span class="p">)</span>
+
+<span class="n">tY</span> <span class="o">=</span> <span class="n">concat_fwd</span><span class="p">(</span><span class="s2">&quot;concat_hidden&quot;</span><span class="p">,</span><span class="n">tape</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">tLoss</span> <span class="o">=</span> <span class="n">softmax_xent_fwd</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">,</span> <span class="n">tape</span><span class="p">,</span> <span class="n">tY</span><span class="p">,</span> <span class="n">by</span><span class="p">)</span>
+<span class="n">tape</span><span class="o">.</span><span class="n">bwd</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff Loss: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tLoss</span><span class="o">.</span><span class="n">data</span><span class="o">-</span> <span class="n">rnn_loss</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff Wrnn: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rnn_grad</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">tWrnn</span><span class="o">.</span><span class="n">dL</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maxdiff Wout: </span><span class="si">{:.02e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rnn_grad</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tWout</span><span class="o">.</span><span class="n">dL</span><span class="p">))))</span>
+<span class="n">tape</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>softmax_out
+concat_hidden_out
+y_3_out
+h_3_out
+act_2_out
+concat_x_h_2_out
+y_2_out
+h_2_out
+act_1_out
+concat_x_h_1_out
+y_1_out
+h_1_out
+act_0_out
+concat_x_h_0_out
+Maxdiff Loss: 0.00e+00
+Maxdiff Wrnn: 5.59e-09
+Maxdiff Wout: 3.03e-08
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea output_execute_result">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: %3 Pages: 1 -->
+<svg width="362pt" height="908pt"
+ viewBox="0.00 0.00 361.70 908.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 904)">
+<title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-904 357.699,-904 357.699,4 -4,4"/>
+<!-- concat_hidden_out -->
+<g id="node1" class="node">
+<title>concat_hidden_out</title>
+<ellipse fill="none" stroke="#000000" cx="136.6465" cy="-90" rx="77.1866" ry="18"/>
+<text text-anchor="middle" x="136.6465" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">concat_hidden_out</text>
+</g>
+<!-- softmax_out -->
+<g id="node2" class="node">
+<title>softmax_out</title>
+<ellipse fill="none" stroke="#000000" cx="136.6465" cy="-18" rx="55.4913" ry="18"/>
+<text text-anchor="middle" x="136.6465" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">softmax_out</text>
+</g>
+<!-- concat_hidden_out&#45;&gt;softmax_out -->
+<g id="edge1" class="edge">
+<title>concat_hidden_out&#45;&gt;softmax_out</title>
+<path fill="none" stroke="#000000" d="M136.6465,-71.8314C136.6465,-64.131 136.6465,-54.9743 136.6465,-46.4166"/>
+<polygon fill="#000000" stroke="#000000" points="140.1466,-46.4132 136.6465,-36.4133 133.1466,-46.4133 140.1466,-46.4132"/>
+</g>
+<!-- y_1_out -->
+<g id="node3" class="node">
+<title>y_1_out</title>
+<ellipse fill="none" stroke="#000000" cx="39.6465" cy="-162" rx="39.7935" ry="18"/>
+<text text-anchor="middle" x="39.6465" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">y_1_out</text>
+</g>
+<!-- y_1_out&#45;&gt;concat_hidden_out -->
+<g id="edge2" class="edge">
+<title>y_1_out&#45;&gt;concat_hidden_out</title>
+<path fill="none" stroke="#000000" d="M60.694,-146.3771C73.6428,-136.7656 90.4842,-124.2648 105.0171,-113.4775"/>
+<polygon fill="#000000" stroke="#000000" points="107.3165,-116.1295 113.2602,-107.3589 103.1444,-110.5087 107.3165,-116.1295"/>
+</g>
+<!-- y_2_out -->
+<g id="node4" class="node">
+<title>y_2_out</title>
+<ellipse fill="none" stroke="#000000" cx="136.6465" cy="-162" rx="39.7935" ry="18"/>
+<text text-anchor="middle" x="136.6465" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">y_2_out</text>
+</g>
+<!-- y_2_out&#45;&gt;concat_hidden_out -->
+<g id="edge3" class="edge">
+<title>y_2_out&#45;&gt;concat_hidden_out</title>
+<path fill="none" stroke="#000000" d="M136.6465,-143.8314C136.6465,-136.131 136.6465,-126.9743 136.6465,-118.4166"/>
+<polygon fill="#000000" stroke="#000000" points="140.1466,-118.4132 136.6465,-108.4133 133.1466,-118.4133 140.1466,-118.4132"/>
+</g>
+<!-- y_3_out -->
+<g id="node5" class="node">
+<title>y_3_out</title>
+<ellipse fill="none" stroke="#000000" cx="233.6465" cy="-162" rx="39.7935" ry="18"/>
+<text text-anchor="middle" x="233.6465" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">y_3_out</text>
+</g>
+<!-- y_3_out&#45;&gt;concat_hidden_out -->
+<g id="edge4" class="edge">
+<title>y_3_out&#45;&gt;concat_hidden_out</title>
+<path fill="none" stroke="#000000" d="M212.5989,-146.3771C199.6502,-136.7656 182.8087,-124.2648 168.2759,-113.4775"/>
+<polygon fill="#000000" stroke="#000000" points="170.1486,-110.5087 160.0328,-107.3589 165.9764,-116.1295 170.1486,-110.5087"/>
+</g>
+<!-- h_3_out -->
+<g id="node6" class="node">
+<title>h_3_out</title>
+<ellipse fill="none" stroke="#000000" cx="241.6465" cy="-234" rx="39.7935" ry="18"/>
+<text text-anchor="middle" x="241.6465" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">h_3_out</text>
+</g>
+<!-- h_3_out&#45;&gt;y_3_out -->
+<g id="edge5" class="edge">
+<title>h_3_out&#45;&gt;y_3_out</title>
+<path fill="none" stroke="#000000" d="M239.6277,-215.8314C238.7721,-208.131 237.7547,-198.9743 236.8039,-190.4166"/>
+<polygon fill="#000000" stroke="#000000" points="240.2754,-189.9656 235.6924,-180.4133 233.3182,-190.7386 240.2754,-189.9656"/>
+</g>
+<!-- Wout -->
+<g id="node7" class="node">
+<title>Wout</title>
+<ellipse fill="none" stroke="#000000" cx="87.6465" cy="-234" rx="30.5947" ry="18"/>
+<text text-anchor="middle" x="87.6465" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Wout</text>
+</g>
+<!-- Wout&#45;&gt;y_1_out -->
+<g id="edge20" class="edge">
+<title>Wout&#45;&gt;y_1_out</title>
+<path fill="none" stroke="#000000" d="M76.2712,-216.937C70.4978,-208.277 63.3619,-197.5731 56.927,-187.9207"/>
+<polygon fill="#000000" stroke="#000000" points="59.7328,-185.8197 51.2736,-179.4407 53.9085,-189.7027 59.7328,-185.8197"/>
+</g>
+<!-- Wout&#45;&gt;y_2_out -->
+<g id="edge13" class="edge">
+<title>Wout&#45;&gt;y_2_out</title>
+<path fill="none" stroke="#000000" d="M99.2588,-216.937C105.1524,-208.277 112.437,-197.5731 119.006,-187.9207"/>
+<polygon fill="#000000" stroke="#000000" points="122.0444,-189.677 124.7771,-179.4407 116.2574,-185.7386 122.0444,-189.677"/>
+</g>
+<!-- Wout&#45;&gt;y_3_out -->
+<g id="edge6" class="edge">
+<title>Wout&#45;&gt;y_3_out</title>
+<path fill="none" stroke="#000000" d="M111.1039,-222.432C134.4661,-210.9109 170.646,-193.0687 197.6461,-179.7536"/>
+<polygon fill="#000000" stroke="#000000" points="199.3568,-182.8125 206.7775,-175.2505 196.2607,-176.5344 199.3568,-182.8125"/>
+</g>
+<!-- act_2_out -->
+<g id="node8" class="node">
+<title>act_2_out</title>
+<ellipse fill="none" stroke="#000000" cx="249.6465" cy="-306" rx="45.4919" ry="18"/>
+<text text-anchor="middle" x="249.6465" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">act_2_out</text>
+</g>
+<!-- act_2_out&#45;&gt;h_3_out -->
+<g id="edge7" class="edge">
+<title>act_2_out&#45;&gt;h_3_out</title>
+<path fill="none" stroke="#000000" d="M247.6277,-287.8314C246.7721,-280.131 245.7547,-270.9743 244.8039,-262.4166"/>
+<polygon fill="#000000" stroke="#000000" points="248.2754,-261.9656 243.6924,-252.4133 241.3182,-262.7386 248.2754,-261.9656"/>
+</g>
+<!-- concat_x_h_2_out -->
+<g id="node9" class="node">
+<title>concat_x_h_2_out</title>
+<ellipse fill="none" stroke="#000000" cx="249.6465" cy="-378" rx="75.2868" ry="18"/>
+<text text-anchor="middle" x="249.6465" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">concat_x_h_2_out</text>
+</g>
+<!-- concat_x_h_2_out&#45;&gt;act_2_out -->
+<g id="edge8" class="edge">
+<title>concat_x_h_2_out&#45;&gt;act_2_out</title>
+<path fill="none" stroke="#000000" d="M249.6465,-359.8314C249.6465,-352.131 249.6465,-342.9743 249.6465,-334.4166"/>
+<polygon fill="#000000" stroke="#000000" points="253.1466,-334.4132 249.6465,-324.4133 246.1466,-334.4133 253.1466,-334.4132"/>
+</g>
+<!-- Wrnn -->
+<g id="node10" class="node">
+<title>Wrnn</title>
+<ellipse fill="none" stroke="#000000" cx="246.6465" cy="-810" rx="31.3957" ry="18"/>
+<text text-anchor="middle" x="246.6465" y="-806.3" font-family="Times,serif" font-size="14.00" fill="#000000">Wrnn</text>
+</g>
+<!-- Wrnn&#45;&gt;act_2_out -->
+<g id="edge9" class="edge">
+<title>Wrnn&#45;&gt;act_2_out</title>
+<path fill="none" stroke="#000000" d="M267.0843,-795.7899C297.8867,-772.52 352.6465,-723.119 352.6465,-666 352.6465,-666 352.6465,-666 352.6465,-450 352.6465,-409.1184 356.8566,-393.6541 333.6465,-360 323.0324,-344.6099 306.4556,-332.6038 290.8227,-323.8616"/>
+<polygon fill="#000000" stroke="#000000" points="292.2574,-320.6613 281.7796,-319.0906 288.991,-326.8525 292.2574,-320.6613"/>
+</g>
+<!-- act_1_out -->
+<g id="node13" class="node">
+<title>act_1_out</title>
+<ellipse fill="none" stroke="#000000" cx="155.6465" cy="-522" rx="45.4919" ry="18"/>
+<text text-anchor="middle" x="155.6465" y="-518.3" font-family="Times,serif" font-size="14.00" fill="#000000">act_1_out</text>
+</g>
+<!-- Wrnn&#45;&gt;act_1_out -->
+<g id="edge16" class="edge">
+<title>Wrnn&#45;&gt;act_1_out</title>
+<path fill="none" stroke="#000000" d="M249.921,-791.8634C256.4182,-750.5625 267.1235,-647.5536 227.6465,-576 219.783,-561.7472 206.3958,-550.1519 193.2828,-541.4115"/>
+<polygon fill="#000000" stroke="#000000" points="195.0996,-538.4196 184.7661,-536.0809 191.3857,-544.3532 195.0996,-538.4196"/>
+</g>
+<!-- act_0_out -->
+<g id="node17" class="node">
+<title>act_0_out</title>
+<ellipse fill="none" stroke="#000000" cx="90.6465" cy="-738" rx="45.4919" ry="18"/>
+<text text-anchor="middle" x="90.6465" y="-734.3" font-family="Times,serif" font-size="14.00" fill="#000000">act_0_out</text>
+</g>
+<!-- Wrnn&#45;&gt;act_0_out -->
+<g id="edge23" class="edge">
+<title>Wrnn&#45;&gt;act_0_out</title>
+<path fill="none" stroke="#000000" d="M222.2715,-798.75C197.5577,-787.3436 158.9231,-769.5123 129.8915,-756.1131"/>
+<polygon fill="#000000" stroke="#000000" points="130.9945,-752.7674 120.4481,-751.7546 128.061,-759.1231 130.9945,-752.7674"/>
+</g>
+<!-- x_2 -->
+<g id="node11" class="node">
+<title>x_2</title>
+<ellipse fill="none" stroke="#000000" cx="249.6465" cy="-450" rx="27" ry="18"/>
+<text text-anchor="middle" x="249.6465" y="-446.3" font-family="Times,serif" font-size="14.00" fill="#000000">x_2</text>
+</g>
+<!-- x_2&#45;&gt;concat_x_h_2_out -->
+<g id="edge10" class="edge">
+<title>x_2&#45;&gt;concat_x_h_2_out</title>
+<path fill="none" stroke="#000000" d="M249.6465,-431.8314C249.6465,-424.131 249.6465,-414.9743 249.6465,-406.4166"/>
+<polygon fill="#000000" stroke="#000000" points="253.1466,-406.4132 249.6465,-396.4133 246.1466,-406.4133 253.1466,-406.4132"/>
+</g>
+<!-- h_2_out -->
+<g id="node12" class="node">
+<title>h_2_out</title>
+<ellipse fill="none" stroke="#000000" cx="155.6465" cy="-450" rx="39.7935" ry="18"/>
+<text text-anchor="middle" x="155.6465" y="-446.3" font-family="Times,serif" font-size="14.00" fill="#000000">h_2_out</text>
+</g>
+<!-- h_2_out&#45;&gt;y_2_out -->
+<g id="edge12" class="edge">
+<title>h_2_out&#45;&gt;y_2_out</title>
+<path fill="none" stroke="#000000" d="M154.4579,-431.9843C151.2457,-383.2939 142.3726,-248.7961 138.4975,-190.0573"/>
+<polygon fill="#000000" stroke="#000000" points="141.9854,-189.7568 137.8346,-180.0089 135.0005,-190.2176 141.9854,-189.7568"/>
+</g>
+<!-- h_2_out&#45;&gt;concat_x_h_2_out -->
+<g id="edge11" class="edge">
+<title>h_2_out&#45;&gt;concat_x_h_2_out</title>
+<path fill="none" stroke="#000000" d="M176.0431,-434.3771C188.5913,-424.7656 204.9119,-412.2648 218.9953,-401.4775"/>
+<polygon fill="#000000" stroke="#000000" points="221.1729,-404.2183 226.9835,-395.3589 216.9164,-398.6611 221.1729,-404.2183"/>
+</g>
+<!-- act_1_out&#45;&gt;h_2_out -->
+<g id="edge14" class="edge">
+<title>act_1_out&#45;&gt;h_2_out</title>
+<path fill="none" stroke="#000000" d="M155.6465,-503.8314C155.6465,-496.131 155.6465,-486.9743 155.6465,-478.4166"/>
+<polygon fill="#000000" stroke="#000000" points="159.1466,-478.4132 155.6465,-468.4133 152.1466,-478.4133 159.1466,-478.4132"/>
+</g>
+<!-- concat_x_h_1_out -->
+<g id="node14" class="node">
+<title>concat_x_h_1_out</title>
+<ellipse fill="none" stroke="#000000" cx="143.6465" cy="-594" rx="75.2868" ry="18"/>
+<text text-anchor="middle" x="143.6465" y="-590.3" font-family="Times,serif" font-size="14.00" fill="#000000">concat_x_h_1_out</text>
+</g>
+<!-- concat_x_h_1_out&#45;&gt;act_1_out -->
+<g id="edge15" class="edge">
+<title>concat_x_h_1_out&#45;&gt;act_1_out</title>
+<path fill="none" stroke="#000000" d="M146.6746,-575.8314C147.958,-568.131 149.4841,-558.9743 150.9104,-550.4166"/>
+<polygon fill="#000000" stroke="#000000" points="154.3859,-550.8526 152.5776,-540.4133 147.4812,-549.7018 154.3859,-550.8526"/>
+</g>
+<!-- x_1 -->
+<g id="node15" class="node">
+<title>x_1</title>
+<ellipse fill="none" stroke="#000000" cx="159.6465" cy="-666" rx="27" ry="18"/>
+<text text-anchor="middle" x="159.6465" y="-662.3" font-family="Times,serif" font-size="14.00" fill="#000000">x_1</text>
+</g>
+<!-- x_1&#45;&gt;concat_x_h_1_out -->
+<g id="edge17" class="edge">
+<title>x_1&#45;&gt;concat_x_h_1_out</title>
+<path fill="none" stroke="#000000" d="M155.609,-647.8314C153.8978,-640.131 151.863,-630.9743 149.9613,-622.4166"/>
+<polygon fill="#000000" stroke="#000000" points="153.3244,-621.4159 147.7383,-612.4133 146.491,-622.9344 153.3244,-621.4159"/>
+</g>
+<!-- h_1_out -->
+<g id="node16" class="node">
+<title>h_1_out</title>
+<ellipse fill="none" stroke="#000000" cx="74.6465" cy="-666" rx="39.7935" ry="18"/>
+<text text-anchor="middle" x="74.6465" y="-662.3" font-family="Times,serif" font-size="14.00" fill="#000000">h_1_out</text>
+</g>
+<!-- h_1_out&#45;&gt;y_1_out -->
+<g id="edge19" class="edge">
+<title>h_1_out&#45;&gt;y_1_out</title>
+<path fill="none" stroke="#000000" d="M65.1153,-648.3947C51.6416,-621.8182 28.6465,-569.5027 28.6465,-522 28.6465,-522 28.6465,-522 28.6465,-306 28.6465,-265.7591 32.97,-219.3759 36.196,-190.3689"/>
+<polygon fill="#000000" stroke="#000000" points="39.7055,-190.485 37.3673,-180.1514 32.751,-189.6877 39.7055,-190.485"/>
+</g>
+<!-- h_1_out&#45;&gt;concat_x_h_1_out -->
+<g id="edge18" class="edge">
+<title>h_1_out&#45;&gt;concat_x_h_1_out</title>
+<path fill="none" stroke="#000000" d="M90.6499,-649.3008C99.279,-640.2965 110.0998,-629.0052 119.7103,-618.9769"/>
+<polygon fill="#000000" stroke="#000000" points="122.3751,-621.2548 126.7672,-611.6132 117.3211,-616.4114 122.3751,-621.2548"/>
+</g>
+<!-- act_0_out&#45;&gt;h_1_out -->
+<g id="edge21" class="edge">
+<title>act_0_out&#45;&gt;h_1_out</title>
+<path fill="none" stroke="#000000" d="M86.609,-719.8314C84.8524,-711.9266 82.7548,-702.4872 80.8101,-693.7365"/>
+<polygon fill="#000000" stroke="#000000" points="84.2133,-692.916 78.6272,-683.9134 77.38,-694.4346 84.2133,-692.916"/>
+</g>
+<!-- concat_x_h_0_out -->
+<g id="node18" class="node">
+<title>concat_x_h_0_out</title>
+<ellipse fill="none" stroke="#000000" cx="90.6465" cy="-810" rx="75.2868" ry="18"/>
+<text text-anchor="middle" x="90.6465" y="-806.3" font-family="Times,serif" font-size="14.00" fill="#000000">concat_x_h_0_out</text>
+</g>
+<!-- concat_x_h_0_out&#45;&gt;act_0_out -->
+<g id="edge22" class="edge">
+<title>concat_x_h_0_out&#45;&gt;act_0_out</title>
+<path fill="none" stroke="#000000" d="M90.6465,-791.8314C90.6465,-784.131 90.6465,-774.9743 90.6465,-766.4166"/>
+<polygon fill="#000000" stroke="#000000" points="94.1466,-766.4132 90.6465,-756.4133 87.1466,-766.4133 94.1466,-766.4132"/>
+</g>
+<!-- x_0 -->
+<g id="node19" class="node">
+<title>x_0</title>
+<ellipse fill="none" stroke="#000000" cx="54.6465" cy="-882" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6465" y="-878.3" font-family="Times,serif" font-size="14.00" fill="#000000">x_0</text>
+</g>
+<!-- x_0&#45;&gt;concat_x_h_0_out -->
+<g id="edge24" class="edge">
+<title>x_0&#45;&gt;concat_x_h_0_out</title>
+<path fill="none" stroke="#000000" d="M63.3611,-864.5708C67.4693,-856.3544 72.4661,-846.3608 77.0554,-837.1821"/>
+<polygon fill="#000000" stroke="#000000" points="80.2945,-838.5301 81.6362,-828.0206 74.0335,-835.3996 80.2945,-838.5301"/>
+</g>
+<!-- h0 -->
+<g id="node20" class="node">
+<title>h0</title>
+<ellipse fill="none" stroke="#000000" cx="126.6465" cy="-882" rx="27" ry="18"/>
+<text text-anchor="middle" x="126.6465" y="-878.3" font-family="Times,serif" font-size="14.00" fill="#000000">h0</text>
+</g>
+<!-- h0&#45;&gt;concat_x_h_0_out -->
+<g id="edge25" class="edge">
+<title>h0&#45;&gt;concat_x_h_0_out</title>
+<path fill="none" stroke="#000000" d="M117.9319,-864.5708C113.8237,-856.3544 108.8269,-846.3608 104.2375,-837.1821"/>
+<polygon fill="#000000" stroke="#000000" points="107.2595,-835.3996 99.6568,-828.0206 100.9985,-838.5301 107.2595,-835.3996"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>We saw that the mechanics of back-propagation for neural networks boil down to applying the chain rule in the correct order, and re-using intermediate results computed during the forward pass.
+The basic algorithm can be written down in a few lines of code, while the heavy lifting is done in the operations that are available, which in turn rely on lower-level math libraries.
+Operations are naturally decoupled from the back-propagation algorithm itself: we could now continue adding convolutions, normalization, regularization, and many more operations.</p>
+<p>Of course, we did not touch upon many of the concerns that need to be addressed for a production-grade system, e.g.:</p>
+<ul>
+<li>Usability: a robust API, that makes it easy to avoid bugs, tools for actual training, model management, ...</li>
+<li>Efficiency: optimizing the graph, reduce memory consumption by recomputing sub-graphs, ...</li>
+<li>Scalability: running on (multiple) GPU, CPU cores, clusters,  fusing operations, ...</li>
+</ul>
+<p>This was more fun than I expected, though the writing took a long, long time.
+Let me know if you found this useful.</p>
+
+</div>
+</div>
+</div>
+ 
+
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2020 yjk21
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-83216470-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+</body>
+</html>
